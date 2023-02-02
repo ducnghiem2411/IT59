@@ -1,16 +1,25 @@
 import { IndexDescription, ObjectId } from "mongodb"
+import { Account } from "./Account"
 
 export interface AssessmentTemplate {
     _id?: ObjectId
-    studentId: number
-    teacherId: number
+    creator: Account
+    censor: Account
+    evidence: string
+    images: string[]
+    comments?: Comment
     isApproved: boolean
-    account: string
-    password: string
-    fullName: string
-    classroomId: number
+    approvedAt: number
+    createdAt: number
+}
+
+interface Comment {
+    creator: Account
+    text: string
+    image: string
+    createdAt: number
 }
 
 export const AssessmentTemplateIndexes: IndexDescription[] = [
-    { key: { studentId: 1 }, unique: true }
+    { key: { "creator.id" : 1 }, unique: true }
 ]

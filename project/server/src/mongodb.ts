@@ -1,9 +1,9 @@
 import { MongoClient, Collection } from 'mongodb'
-import { Student, StudentIndexes } from './models/Student'
+import { Account, AccountIndexes } from './models/Account'
 
 let mongo: MongoClient
 
-export let Students: Collection<Student>
+export let Students: Collection<Account>
 
 const collections = {
     students: 'students'
@@ -42,7 +42,7 @@ async function connectMongo (MONGO_URI: string) {
         Students = db.collection(collections.students)
 
         await Promise.all([
-            await Students.createIndexes(StudentIndexes)
+            await Students.createIndexes(AccountIndexes)
         ])
 
         console.log(`🚀 Mongodb: connected`)
