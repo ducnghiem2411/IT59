@@ -21,5 +21,6 @@ interface Comment {
 }
 
 export const AssessmentTemplateIndexes: IndexDescription[] = [
-    { key: { "creator.id" : 1 }, unique: true }
+    { key: { "creator.id" : 1 } },
+    { key: { "sensor.id" : 1 } }
 ]
