@@ -1,0 +1,12 @@
+version: "3.7"
+
+services:
+  tracking-kol:
+    container_name: base-ts-node
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - "$PORT:$PORT"
+    env_file: .env
+    restart: always
