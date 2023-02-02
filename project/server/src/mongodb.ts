@@ -1,12 +1,13 @@
 import { MongoClient, Collection } from 'mongodb'
 import { Account, AccountIndexes } from './models/Account'
+import { DB_NAME } from './shared/config'
 
 let mongo: MongoClient
 
-export let Students: Collection<Account>
+export let Accounts: Collection<Account>
 
 const collections = {
-    students: 'students'
+    accounts: 'accounts'
 }
 
 async function connectMongo (MONGO_URI: string) {
@@ -37,17 +38,17 @@ async function connectMongo (MONGO_URI: string) {
             }
         })
 
-        const db = mongo.db('TestnetAccounts')
+        const db = mongo.db(DB_NAME)
 
-        Students = db.collection(collections.students)
+        Accounts = db.collection(collections.accounts)
 
         await Promise.all([
-            await Students.createIndexes(AccountIndexes)
+            await Accounts.createIndexes(AccountIndexes)
         ])
 
         console.log(`🚀 Mongodb: connected`)
     } catch (e) {
-        console.error(`mongodb: disconnected`)
+        console.error(`Mongodb: disconnected`)
         await mongo?.close(true)
         setTimeout(connectMongo, 1000)
         throw e

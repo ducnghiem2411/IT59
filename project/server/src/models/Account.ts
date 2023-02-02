@@ -5,7 +5,7 @@ export interface Account {
     accountId: number
     accountType: 'admin' | 'teacher' | 'student'
     classroomId: number
-    account: string
+    accountName: string
     fullName: string
     image: string
     password: string
@@ -17,5 +17,7 @@ export interface Account {
 }
 
 export const AccountIndexes: IndexDescription[] = [
-    { key: { accountId: 1 }, unique: true }
+    { key: { accountId: 1 }, unique: true },
+    { key: { accountType: 1 } },
+    { key: { createdAt: 1 } },
 ]
