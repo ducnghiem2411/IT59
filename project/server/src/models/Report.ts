@@ -2,7 +2,7 @@ import { IndexDescription, ObjectId } from "mongodb"
 
 export interface Report {
     _id?: ObjectId
-    reportId: number
+    reportId: string
     createdAt: number
 }
 

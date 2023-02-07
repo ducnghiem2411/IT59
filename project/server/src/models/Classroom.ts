@@ -2,10 +2,10 @@ import { IndexDescription, ObjectId } from "mongodb"
 
 export interface Classroom {
     _id?: ObjectId
-    classroomId: number
+    classroomId: string
     classroomName: string
-    teacherId: number
-    studentsId: number[]
+    teacherId: string
+    studentsId: string[]
     studentCount: number
     createdAt: number
 }

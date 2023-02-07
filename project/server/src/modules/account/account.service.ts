@@ -2,13 +2,13 @@ import { Filter } from "mongodb";
 import { Account } from "../../models/Account";
 import { Accounts } from "../../mongodb";
 import { validatePaginationParams } from "../../shared/utils";
-import { ListAccountParams } from "./account.dto";
+import { AccountPaginate, ListAccountParams } from "./account.type";
 
-async function findAccountById(accountId: number): Promise<Account | null> {
+export async function findAccountById(accountId: string): Promise<Account | null> {
     return await Accounts.findOne({ accountId })
 }
 
-async function listAccount(params: ListAccountParams): Promise<{ total: number, data: Account[] }> {
+export async function listAccount(params: ListAccountParams): Promise<AccountPaginate> {
     const { page, pageSize, accountType, classroomId, isApproved } = params
     validatePaginationParams(page, pageSize)
     
