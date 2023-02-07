@@ -1,18 +1,20 @@
 import express from 'express'
 import cors from 'cors'
 import bodyParser from 'body-parser'
-import { PORT } from './shared/config'
+import { PORT, DB_URI } from './shared/config'
+import { connectMongo } from './mongodb'
+import { indexRouter } from './modules/index.route'
 
-const app = express()
-
-app.get('/', function (req, res) {
-  res.send('Hello World')
-})
-
-app.use(cors())
-app.use(bodyParser.urlencoded({ extended: true }))
-app.use(bodyParser.json())
-
-app.listen(PORT, () => {
-    console.log(`App listen on port ${PORT}`)
-})
+(async () => {
+  await connectMongo(DB_URI)
+  const app = express()
+  
+  app.use(cors())
+  app.use(indexRouter)
+  app.use(bodyParser.urlencoded({ extended: true }))
+  app.use(bodyParser.json())
+  
+  app.listen(PORT, () => {
+      console.log(`App listen on port ${PORT}`)
+  })
+})()

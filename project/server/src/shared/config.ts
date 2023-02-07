@@ -1,5 +1,5 @@
-const PORT = 3000
-const DB_URI = ""
+const PORT = 3001
+const DB_URI = "mongodb+srv://nghiemld:01unstable@testnet-accounts.uzy1c.mongodb.net/?retryWrites=true&w=majority"
 const DB_NAME = 'IT59'
 const JWT_SECRET = 'very_secret'
 
