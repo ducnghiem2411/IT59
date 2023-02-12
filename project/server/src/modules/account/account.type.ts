@@ -8,6 +8,14 @@ export interface ListAccountParams {
     isApproved?: boolean
 }
 
+export interface EditAccountParams {
+    fullName: string
+    image: string
+    password: string
+    email: string
+    phone: string
+}
+
 export interface AccountPaginate {
     total: number, 
     data: Account[] 

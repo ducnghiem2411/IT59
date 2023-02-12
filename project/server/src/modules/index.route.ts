@@ -3,6 +3,6 @@ import { accountRouter } from "./account/account.route"
 
 const indexRouter = Router()
 
-indexRouter.use('/accounts', accountRouter)
+indexRouter.use('/account', accountRouter)
 
 export { indexRouter }
