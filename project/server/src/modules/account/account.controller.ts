@@ -1,6 +1,7 @@
 import { Request, Response } from 'express'
 import { Account } from '../../models/Account';
 import { ApiResponse } from '../../shared/types/api.response';
+import { AuthRequest } from '../../shared/types/auth.request';
 import { editAccountById, findAccountById, listAccount } from './account.service';
 import { AccountPaginate, EditAccountParams, ListAccountParams } from './account.type';
 
@@ -38,7 +39,7 @@ export async function getAccountById(req: Request, res: Response): Promise<ApiRe
     }
 }
 
-export async function editAccount(req: Request, res: Response): Promise<ApiResponse<Account>> {
+export async function editAccount(req: AuthRequest, res: Response): Promise<ApiResponse<Account>> {
     try {
         const body: EditAccountParams = req.body
         return await editAccountById()
