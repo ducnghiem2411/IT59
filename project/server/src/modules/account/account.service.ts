@@ -29,6 +29,11 @@ export async function listAccount(params: ListAccountParams): Promise<AccountPag
     return { total, data }
 }
 
-export async function editAccountById(accountId: number, params: EditAccountParams) {
-    
+export async function editAccountById(accountId: string, params: EditAccountParams) {
+    const { value } = await Accounts.findOneAndUpdate(
+        { accountId },
+        { $set: params },
+        { returnDocument: 'after' }
+    )
+    return value
 }

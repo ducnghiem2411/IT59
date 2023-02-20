@@ -1,14 +1,13 @@
-import { Response, NextFunction } from 'express'
+import { Response, NextFunction, Request } from 'express'
 import { JWT_SECRET } from './config'
 import { verify } from 'jsonwebtoken'
-import { AuthRequest } from './types/auth.request'
 
-export async function userAuthorization(req: AuthRequest, res: Response, next: NextFunction) {
+export async function authMiddleware(req: Request, res: Response, next: NextFunction) {
     try {
         const token = req.headers.authorization?.split(' ')[1]
         if (token) {
-            verify(token, JWT_SECRET)
-            req.accountId
+            const decodeResult = verify(token, JWT_SECRET)
+            req['user'] = decodeResult
             next()
         }
         throw { code: 401, message: "Unauthorized" }
