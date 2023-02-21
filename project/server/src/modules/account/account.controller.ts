@@ -41,11 +41,11 @@ export async function getAccountById(req: Request, res: Response): Promise<ApiRe
 export async function editAccount(req: Request, res: Response): Promise<ApiResponse<Account>> {
     try {
         const body: EditAccountParams = req.body
-        const editedAccount = await editAccountById(req[])
+        const editedAccount = await editAccountById(req['user'].userId, body)
         if (!editedAccount) {
-            return { code: 500,  }
+            return { code: 404 }
         }
-        return 
+        return { code: 200, data: editedAccount }
     } catch (e) {
         return { code: 500 }
     }

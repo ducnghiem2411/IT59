@@ -12,8 +12,8 @@ export interface Account {
     email: string
     phone: string
     isApproved: boolean
-    createdAt: number
     approvedAt: number
+    createdAt: number
 }
 
 export const AccountIndexes: IndexDescription[] = [

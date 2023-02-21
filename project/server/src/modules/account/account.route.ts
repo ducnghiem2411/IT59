@@ -5,5 +5,5 @@ import { editAccount, getAccountById, getListAccount } from './account.controlle
 export const accountRouter = Router()
 
 accountRouter.route('/').get(getListAccount)
-accountRouter.route('/:accountId').get(authMiddleware, getAccountById)
+accountRouter.route('/:accountId').get(getAccountById)
 accountRouter.route('/:accountId').put(authMiddleware, editAccount)
