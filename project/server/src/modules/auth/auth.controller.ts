@@ -1,36 +1,38 @@
-// import { Request, Response } from 'express'
-// import { Account } from '../../models/Account';
-// import { ApiResponse } from '../../shared/types/api.response';
-// import { createAccount } from './auth.service';
-// import { SignUpParams } from './auth.type';
+import { Request, Response } from 'express'
+import { Account } from '../../models/Account'
+import { ApiResponse } from '../../shared/types/api.response'
+import { createAccount, login } from './auth.service'
+import { SignIn, SignUpParams } from './auth.type'
 
-// export async function signUp(req: Request, res: Response): Promise<ApiResponse<Account>> {
-//     try {
-//         const { }: SignUpParams = req.body
+export async function signUp(req: Request, res: Response): Promise<ApiResponse<Account>> {
+  try {
+    const body: SignUpParams = req.body
 
-//         const data = await createAccount({})
+    console.log(body)
+    const data = await createAccount(body)
 
-//         return { code: 200 }
-//     } catch (e) {
-//         return { code: 500 }
-//     }
-// }
+    res.send({ code: 200, data })
 
+    return { code: 200, data }
+  } catch (e) {
+    console.log(e)
 
-// export async function signIn(req: Request, res: Response): Promise<ApiResponse<{ token: string }>> {
-//     try {
-//         const { page, pageSize, accountType, classroomId, isApproved }: ListAccountParams = req.query as any
+    return { code: 500 }
+  }
+}
 
-//         const data = await listAccount({
-//             page: Number(page),
-//             pageSize: Number(pageSize),
-//             accountType,
-//             classroomId,
-//             isApproved: isApproved && Boolean(isApproved)
-//         })
+export async function signIn(req: Request, res: Response): Promise<ApiResponse<{ token: string }>> {
+  try {
+    const body: SignIn = req.body
 
-//         return { code: 200, data }
-//     } catch (e) {
-//         return { code: 500 }
-//     }
-// }
+    const token = await login(body)
+
+    if (token) {
+      return { code: 200, data: { token } }
+    }
+
+    return { code: 403, message: 'Invalid username or password' }
+  } catch (e) {
+    return { code: 500 }
+  }
+}
