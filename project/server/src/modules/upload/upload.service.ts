@@ -34,6 +34,7 @@ const upload = multer({
   },
 })
 
-upload.single('image', (req, res) => {
-  res.send('File uploaded successfully')
-})
+export function uploadFile() {
+    
+    upload.single('file')
+}
