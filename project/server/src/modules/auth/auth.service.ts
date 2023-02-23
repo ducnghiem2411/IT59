@@ -28,7 +28,6 @@ export async function createAccount(params: SignUpParams) {
 
 export async function login({ accountName, password }: SignIn): Promise<string | undefined> {
   const account = await Accounts.findOne({ accountName, password })
-
   if (account) {
     return createToken({
       accountId: account.accountId,

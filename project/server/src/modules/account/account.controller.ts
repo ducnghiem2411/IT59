@@ -1,52 +1,47 @@
 import { Request, Response } from 'express'
-import { Account } from '../../models/Account';
-import { ApiResponse } from '../../shared/types/api.response';
-import { editAccountById, findAccountById, listAccount } from './account.service';
-import { AccountPaginate, EditAccountParams, ListAccountParams } from './account.type';
+import { Account } from '../../models/Account'
+import { ApiResponse } from '../../shared/types/api.response'
+import { editAccountById, findAccountById, listAccount } from './account.service'
+import { AccountPaginate, EditAccountParams, ListAccountParams } from './account.type'
 
-export async function getListAccount(req: Request, res: Response): Promise<ApiResponse<AccountPaginate>> {
-    try {
-        const { page, pageSize, accountType, classroomId, isApproved }: ListAccountParams = req.query as any
-
-        const data = await listAccount({
-            page: Number(page),
-            pageSize: Number(pageSize),
-            accountType,
-            classroomId,
-            isApproved: isApproved && Boolean(isApproved)
-        })
-
-        return { code: 200, data }
-    } catch (e) {
-        return { code: 500 }
-    }
+export async function getListAccount(req: Request, res: Response<ApiResponse<AccountPaginate>>) {
+  try {
+    const { page, pageSize, accountType, classroomId, isApproved }: ListAccountParams = req.query as any
+    const data = await listAccount({
+      page: Number(page),
+      pageSize: Number(pageSize),
+      accountType,
+      classroomId,
+      isApproved: isApproved && Boolean(isApproved),
+    })
+    res.send({ code: 200, data })
+  } catch (e) {
+    res.send({ code: 500 })
+  }
 }
 
-export async function getAccountById(req: Request, res: Response): Promise<ApiResponse<Account>> {
-    try {
-        const { accountId } = req.params
-        
-        const account = await findAccountById(accountId)
-
-        if (!account) {
-            return { code: 404 }
-        }
-
-        return { code: 200, data: account }
-    } catch (e) {
-        return { code: 500 }
+export async function getAccountById(req: Request, res: Response<ApiResponse<Account>>) {
+  try {
+    const { accountId } = req.params
+    const account = await findAccountById(accountId)
+    if (account) {
+        res.send({ code: 200, data: account })
     }
+    res.send({ code: 404 })
+  } catch (e) {
+    res.send({ code: 500 })
+  }
 }
 
-export async function editAccount(req: Request, res: Response): Promise<ApiResponse<Account>> {
-    try {
-        const body: EditAccountParams = req.body
-        const editedAccount = await editAccountById(req['user'].userId, body)
-        if (!editedAccount) {
-            return { code: 404 }
-        }
-        return { code: 200, data: editedAccount }
-    } catch (e) {
-        return { code: 500 }
+export async function editAccount(req: Request, res: Response<ApiResponse<Account>>) {
+  try {
+    const body: EditAccountParams = req.body
+    const editedAccount = await editAccountById(req['user'].userId, body)
+    if (editedAccount) {
+        res.send({ code: 200, data: editedAccount })
     }
+    res.send({ code: 404 })
+  } catch (e) {
+    res.send({ code: 500 })
+  }
 }
