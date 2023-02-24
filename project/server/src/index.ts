@@ -6,7 +6,7 @@ import { connectMongo } from './mongodb'
 import { indexRouter } from './modules/index.route'
 
 ;(async () => {
-  await connectMongo(DB_URI)
+  // await connectMongo(DB_URI)
   const app = express()
 
   app.use(cors())

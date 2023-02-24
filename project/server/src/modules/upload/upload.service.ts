@@ -1,4 +1,3 @@
-import express from 'express'
 import multer from 'multer'
 import path from 'path'
 
@@ -27,14 +26,13 @@ function checkFileType(file: Express.Multer.File, cb: multer.FileFilterCallback)
 }
 
 // Init upload
-const upload = multer({
+export const uploadMiddleware = multer({
   storage: storage,
   fileFilter: function (req, file, cb) {
     checkFileType(file, cb)
   },
 })
 
-export function uploadFile() {
-    
-    upload.single('file')
+export function saveFile(filename: string) {
+
 }

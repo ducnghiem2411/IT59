@@ -1,6 +1,8 @@
 import { Router } from 'express'
-import { uploadFile } from './upload.controller'
+import { getFile, uploadFile } from './upload.controller'
+import { uploadMiddleware } from './upload.service'
 
-export const authRouter = Router()
+export const uploadRouter = Router()
 
-authRouter.route('/upload').post(uploadFile)
+uploadRouter.route('/send').post(uploadFile)
+uploadRouter.route('/read/:filename').get(getFile)
