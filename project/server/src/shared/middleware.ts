@@ -1,8 +1,9 @@
 import { Response, NextFunction, Request } from 'express'
 import { JWT_SECRET } from './config'
 import { verify } from 'jsonwebtoken'
+import { ApiResponse } from './types/api.response'
 
-export async function authMiddleware(req: Request, res: Response, next: NextFunction) {
+export async function authMiddleware(req: Request, res: Response<ApiResponse<any>>, next: NextFunction) {
   try {
     const token = req.headers.authorization?.split(' ')[1]
     if (token) {
@@ -10,8 +11,8 @@ export async function authMiddleware(req: Request, res: Response, next: NextFunc
       req['user'] = decodeResult
       next()
     }
-    throw { code: 401, message: 'Unauthorized' }
+    res.send({ code: 401, message: 'Unauthorized' })
   } catch (e) {
-    throw { code: 401, message: 'Unauthorized' }
+    res.send({ code: 401, message: 'Unauthorized' })
   }
 }
