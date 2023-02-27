@@ -1,3 +1,4 @@
+import { AssessmentTemplate } from "../../models/AssessmentTemplate"
 
 export interface SubmitTemplate {
     evidence: string
@@ -11,4 +12,9 @@ export interface ListTemplateParams {
     censorId?: string
     classRoomId?: string
     isApproved?: boolean
+}
+
+export interface TemplatePaginate {
+    total: number, 
+    data: AssessmentTemplate[] 
 }
