@@ -9,8 +9,6 @@ export async function uploadFile(req: Request, res: Response<ApiResponse<{ url: 
       uploadMiddleware.single('file')
       const file = req.file
       if (file) {
-         console.log({ file });
-
          saveFile(file.destination)
          res.send({ code: 200 })
       } else {
@@ -21,16 +19,14 @@ export async function uploadFile(req: Request, res: Response<ApiResponse<{ url: 
    }
 }
 
-export async function getFile(req, res) {
+export async function getFile(req: Request, res: Response<Buffer | string>) {
    const { filename } = req.params;
-   const file = path.join(__dirname, "./uploads", filename);
-
+   const file = path.join(__dirname, "../../../uploads", filename);
    readFile(file, (err, data) => {
       if (err) {
-         console.error(err);
-         res.status(500).send("Error reading file");
+         res.send("File not found")
       } else {
-         res.send(data);
+         res.send(data)
       }
-   });
+   })
 }

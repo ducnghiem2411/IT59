@@ -1,10 +1,12 @@
 import { IndexDescription, ObjectId } from "mongodb"
 import { Account } from "./Account"
+import { Classroom } from "./Classroom"
 
 export interface AssessmentTemplate {
     _id?: ObjectId
     creator: Account
     censor: Account
+    classRoom: Classroom
     evidence: string
     images: string[]
     comments?: Comment
