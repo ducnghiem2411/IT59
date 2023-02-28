@@ -1,10 +1,13 @@
 import { MongoClient, Collection } from 'mongodb'
 import { Account, AccountIndexes } from './models/Account'
+import { AssessmentTemplate, AssessmentTemplateIndexes } from './models/AssessmentTemplate'
 import { DB_NAME } from './shared/config'
 
 let mongo: MongoClient
 
 export let Accounts: Collection<Account>
+export let AssessmentTemplates: Collection<AssessmentTemplate>
+
 
 const collections = {
     accounts: 'accounts'
@@ -43,7 +46,8 @@ async function connectMongo (MONGO_URI: string) {
         Accounts = db.collection(collections.accounts)
 
         await Promise.all([
-            await Accounts.createIndexes(AccountIndexes)
+            Accounts.createIndexes(AccountIndexes),
+            AssessmentTemplates.createIndexes(AssessmentTemplateIndexes)
         ])
 
         console.log(`🚀 Mongodb: connected`)

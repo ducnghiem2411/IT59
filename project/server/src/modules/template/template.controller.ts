@@ -1,12 +1,15 @@
 import { Request, Response } from "express";
 import { AssessmentTemplate } from "../../models/AssessmentTemplate";
 import { ApiResponse } from "../../shared/types/api.response";
-import { findTemplates } from "./template.service";
-import { ListTemplateParams, TemplatePaginate } from "./template.type";
+import { TokenPayload } from "../../shared/types/token.payload";
+import { findTemplateById, findTemplates } from "./template.service";
+import { ListTemplateParams, SubmitTemplate, TemplatePaginate } from "./template.type";
 
 export async function submitTemplate(req: Request, res: Response<ApiResponse<AssessmentTemplate>>) {
     try {
-        const body = req.body
+        const body: SubmitTemplate = req.body
+        const user: TokenPayload = req['user']
+        
     } catch (e) {
         res.send({ code: 500 })
     }
@@ -15,6 +18,11 @@ export async function submitTemplate(req: Request, res: Response<ApiResponse<Ass
 export async function getTemplateById(req: Request, res: Response<ApiResponse<AssessmentTemplate>>) {
     try {
         const { templateId } = req.params
+        const data = await findTemplateById(templateId)
+        if (data) {
+            res.send({ code: 200, data })
+        }
+        res.send({ code: 404 })
     } catch (e) {
         res.send({ code: 500 })
     }

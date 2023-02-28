@@ -1,6 +1,7 @@
 import { Request, Response } from 'express'
 import { Account } from '../../models/Account'
 import { ApiResponse } from '../../shared/types/api.response'
+import { TokenPayload } from '../../shared/types/token.payload'
 import { editAccountById, findAccountById, listAccount } from './account.service'
 import { AccountPaginate, EditAccountParams, ListAccountParams } from './account.type'
 
@@ -36,7 +37,9 @@ export async function getAccountById(req: Request, res: Response<ApiResponse<Acc
 export async function editAccount(req: Request, res: Response<ApiResponse<Account>>) {
   try {
     const body: EditAccountParams = req.body
-    const editedAccount = await editAccountById(req['user'].userId, body)
+    const user: TokenPayload = req['user']
+    
+    const editedAccount = await editAccountById(user.accountId, body)
     if (editedAccount) {
         res.send({ code: 200, data: editedAccount })
     }

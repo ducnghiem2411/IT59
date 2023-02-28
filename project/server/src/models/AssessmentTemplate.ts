@@ -6,7 +6,7 @@ export interface AssessmentTemplate {
     _id?: ObjectId
     creator: Account
     censor: Account
-    classRoom: Classroom
+    classroom: Classroom
     evidence: string
     images: string[]
     comments?: Comment
