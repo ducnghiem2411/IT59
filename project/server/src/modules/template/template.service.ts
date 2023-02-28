@@ -1,8 +1,9 @@
 import { Filter, ObjectId } from "mongodb";
-import { AssessmentTemplate } from "../../models/AssessmentTemplate";
+import { AssessmentTemplate, Comment } from "../../models/AssessmentTemplate";
 import { Accounts, AssessmentTemplates, Classrooms } from "../../mongodb";
+import { TokenPayload } from "../../shared/types/token.payload";
 import { validatePaginationParams } from "../../shared/utils";
-import { ListTemplateParams, SubmitTemplate } from "./template.type";
+import { CommentOnTemplate, ListTemplateParams, SubmitTemplate } from "./template.type";
 
 export async function findTemplates(params: ListTemplateParams) {
     const { censorId, creatorId, classRoomId, isApproved } = params
@@ -66,4 +67,46 @@ export async function saveTemplate(creatorId: string, params: SubmitTemplate) {
     const { insertedId } = await AssessmentTemplates.insertOne(template)
     template._id = insertedId
     return template    
+}
+
+export async function saveComment(user: TokenPayload, params: CommentOnTemplate) {
+    const template = await AssessmentTemplates.findOne({ _id: new Object(params.templateId) })
+
+    if (!template) {
+        return
+    }
+
+    const comment: Comment =  {
+        creatorId: user.accountId,
+        image: params.image,
+        text: params.text,
+        createdAt: new Date().getTime()
+    }
+
+    await AssessmentTemplates.updateOne(
+        { _id: new ObjectId(params.templateId) },
+        { $push: { comments: comment }}
+    )
+    return comment
+}
+
+export async function approveTemplate(user: TokenPayload, templateId: string) {
+    const template = await AssessmentTemplates.findOne({ _id: new ObjectId(templateId) })
+
+    if (!template) {
+        return
+    }
+    const censorsId = template.censors.map(i => i.accountId)
+
+    if (!censorsId.includes(user.accountId)) {
+        return
+    }
+
+    const updatedTemplate = await AssessmentTemplates.findOneAndUpdate(
+        { _id: new ObjectId(templateId) },
+        { $set: { isApproved: true } },
+        { returnDocument: 'after' }
+    )
+
+    return updatedTemplate.value
 }

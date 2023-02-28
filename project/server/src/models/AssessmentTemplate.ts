@@ -15,7 +15,7 @@ export interface AssessmentTemplate {
     createdAt: number
 }
 
-interface Comment {
+export interface Comment {
     creatorId: string
     text: string
     image: string
