@@ -5,13 +5,13 @@ import { Classroom } from "./Classroom"
 export interface AssessmentTemplate {
     _id?: ObjectId
     creator: Account
-    censor: Account
+    censors: Account[]
     classroom: Classroom
     evidence: string
     images: string[]
-    comments?: Comment
+    comments?: Comment[]
     isApproved: boolean
-    approvedAt: number
+    approvedAt?: number
     createdAt: number
 }
 
@@ -24,5 +24,5 @@ interface Comment {
 
 export const AssessmentTemplateIndexes: IndexDescription[] = [
     { key: { "creator.id" : 1 } },
-    { key: { "sensor.id" : 1 } }
+    { key: { "sensors.id" : 1 } }
 ]

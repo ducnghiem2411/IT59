@@ -11,8 +11,7 @@ export interface Account {
   password: string
   email: string
   phone: string
-  isApproved: boolean
-  approvedAt?: number
+  creatorId: string
   createdAt: number
 }
 
@@ -20,6 +19,4 @@ export const AccountIndexes: IndexDescription[] = [
   { key: { accountId: 1 }, unique: true },
   { key: { accountType: 1 } },
   { key: { createdAt: 1 } },
-  { key: { isApproved: 1 } },
-  { key: { approvedAt: 1 } },
 ]

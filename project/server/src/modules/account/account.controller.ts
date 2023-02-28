@@ -38,7 +38,7 @@ export async function editAccount(req: Request, res: Response<ApiResponse<Accoun
   try {
     const body: EditAccountParams = req.body
     const user: TokenPayload = req['user']
-    
+
     const editedAccount = await editAccountById(user.accountId, body)
     if (editedAccount) {
         res.send({ code: 200, data: editedAccount })

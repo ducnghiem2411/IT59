@@ -3,9 +3,18 @@ import { SignIn, SignUpParams } from './auth.type'
 import * as uuid from 'uuid'
 import { Account } from '../../models/Account'
 import { createToken } from '../../shared/jwt'
+import { TokenPayload } from '../../shared/types/token.payload'
 
-export async function createAccount(params: SignUpParams) {
+export async function createAccount(creator: TokenPayload, params: SignUpParams) {
   const { accountName, accountType, classroomId, email, fullName, phone, password } = params
+
+  if ((accountType === 'admin' || accountType === 'teacher') && creator.accountType !== 'admin') {
+    return
+  }
+
+  if (accountType === 'student' && creator.accountType !== 'student') {
+    return
+  }
 
   const account: Account = {
     accountId: uuid.v4(),
@@ -18,7 +27,7 @@ export async function createAccount(params: SignUpParams) {
     phone,
     createdAt: new Date().getTime(),
     image: '',
-    isApproved: false,
+    creatorId: creator.accountId
   }
 
   await Accounts.insertOne(account)

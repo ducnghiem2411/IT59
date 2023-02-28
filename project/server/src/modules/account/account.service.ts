@@ -1,39 +1,42 @@
-import { Filter } from "mongodb";
-import { Account } from "../../models/Account";
-import { Accounts } from "../../mongodb";
-import { validatePaginationParams } from "../../shared/utils";
-import { AccountPaginate, EditAccountParams, ListAccountParams } from "./account.type";
+import { Filter } from 'mongodb'
+import { Account } from '../../models/Account'
+import { Accounts } from '../../mongodb'
+import { validatePaginationParams } from '../../shared/utils'
+import { AccountPaginate, EditAccountParams, ListAccountParams } from './account.type'
 
 export async function findAccountById(accountId: string): Promise<Account | null> {
-    return await Accounts.findOne({ accountId })
+  return await Accounts.findOne({ accountId })
 }
 
 export async function listAccount(params: ListAccountParams): Promise<AccountPaginate> {
-    const { page, pageSize, accountType, classroomId, isApproved } = params
-    validatePaginationParams(page, pageSize)
-    
-    let filter: Filter<Account> = {}
+  const { page, pageSize, accountType, classroomId, isApproved } = params
+  validatePaginationParams(page, pageSize)
 
-    if (accountType) {
-        filter.accountType = accountType
-    }
-    if (classroomId) {
-        filter.classroomId = classroomId
-    }
-    if (isApproved !== undefined) {
-        filter.isApproved = isApproved
-    }
+  let filter: Filter<Account> = {}
 
-    const data = await Accounts.find(filter).limit(pageSize).skip(pageSize*page).toArray()
-    const total = await Accounts.countDocuments(filter)
-    return { total, data }
+  if (accountType) {
+    filter.accountType = accountType
+  }
+  if (classroomId) {
+    filter.classroomId = classroomId
+  }
+  if (isApproved !== undefined) {
+    filter.isApproved = isApproved
+  }
+
+  const data = await Accounts.find(filter)
+    .limit(pageSize)
+    .skip(pageSize * page)
+    .toArray()
+  const total = await Accounts.countDocuments(filter)
+  return { total, data }
 }
 
 export async function editAccountById(accountId: string, params: EditAccountParams) {
-    const { value } = await Accounts.findOneAndUpdate(
-        { accountId },
-        { $set: params },
-        { returnDocument: 'after' }
-    )
-    return value
+  const { value } = await Accounts.findOneAndUpdate(
+    { accountId },
+    { $set: params },
+    { returnDocument: 'after' }
+  )
+  return value
 }

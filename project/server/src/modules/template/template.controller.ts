@@ -2,14 +2,20 @@ import { Request, Response } from "express";
 import { AssessmentTemplate } from "../../models/AssessmentTemplate";
 import { ApiResponse } from "../../shared/types/api.response";
 import { TokenPayload } from "../../shared/types/token.payload";
-import { findTemplateById, findTemplates } from "./template.service";
+import { findTemplateById, findTemplates, saveTemplate } from "./template.service";
 import { ListTemplateParams, SubmitTemplate, TemplatePaginate } from "./template.type";
 
 export async function submitTemplate(req: Request, res: Response<ApiResponse<AssessmentTemplate>>) {
     try {
         const body: SubmitTemplate = req.body
         const user: TokenPayload = req['user']
-        
+
+        const data = await saveTemplate(user.accountId, body)
+
+        if (data) {
+            res.send({ code: 200, data })
+        }
+        res.send({ code: 400 })
     } catch (e) {
         res.send({ code: 500 })
     }
