@@ -4,6 +4,7 @@ import * as uuid from 'uuid'
 import { Account } from '../../models/Account'
 import { createToken } from '../../shared/jwt'
 import { TokenPayload } from '../../shared/types/token.payload'
+import { ClientSession } from 'mongodb'
 
 export async function createAccount(creator: TokenPayload, params: SignUpParams) {
   const { accountName, accountType, classroomId, email, fullName, phone, password } = params

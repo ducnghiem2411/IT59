@@ -9,9 +9,7 @@ export async function submitTemplate(req: Request, res: Response<ApiResponse<Ass
   try {
     const body: SubmitTemplate = req.body
     const user: TokenPayload = req['user']
-
     const data = await saveTemplate(user.accountId, body)
-
     if (data) {
       res.send({ code: 200, data })
     }

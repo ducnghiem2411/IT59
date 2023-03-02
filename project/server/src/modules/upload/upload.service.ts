@@ -1,5 +1,6 @@
 import multer from 'multer'
 import path from 'path'
+import { PORT } from '../../shared/config'
 
 // Set storage engine
 const storage = multer.diskStorage({
@@ -33,6 +34,7 @@ export const uploadMiddleware = multer({
   },
 })
 
-export function saveFile(filename: string) {
-
+export function getFileUrl(filename: string) {
+  // http://localhost:3001/upload/read/file-1677208085307.png
+  return `http://localhost:${PORT}/upload/read/${filename}`
 }
