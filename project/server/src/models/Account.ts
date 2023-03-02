@@ -4,7 +4,7 @@ export interface Account {
   _id?: ObjectId
   accountId: string
   accountType: 'admin' | 'teacher' | 'student'
-  classroomId: string
+  classroomId: string | null
   accountName: string
   fullName: string
   image: string
