@@ -2,14 +2,13 @@ import { Request, Response } from "express";
 import path from "path";
 import { readFile } from 'fs'
 import { ApiResponse } from "../../shared/types/api.response";
-import { getFileUrl, uploadMiddleware } from "./upload.service";
+import { getFileUrl } from "./upload.service";
 
 export async function uploadFile(req: Request, res: Response<ApiResponse<{ url: string }>>) {
    try {
-      uploadMiddleware.single('file')
       const file = req.file
       if (file) {
-         const fileUrl = getFileUrl(file.destination)
+         const fileUrl = getFileUrl(file.filename)
          res.send({ code: 200, data: { url: fileUrl }})
       } else {
          res.send({ code: 403 })
