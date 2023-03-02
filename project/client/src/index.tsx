@@ -1,11 +1,26 @@
-import React from 'react'
-import ReactDOM from 'react-dom/client'
-import './index.css'
-import App from './App'
+import { AuthProvider } from "contexts/JWTAuthContext";
+import SettingsProvider from "contexts/SettingsContext";
+import TitleContextProvider from "contexts/TitleContext";
+import "nprogress/nprogress.css";
+import { StrictMode } from "react";
+import ReactDOM from "react-dom";
+import "react-image-lightbox/style.css";
+import { BrowserRouter } from "react-router-dom";
+import "simplebar/dist/simplebar.min.css";
+import App from "./App";
+import "./__fakeApi__";
 
-const root = ReactDOM.createRoot(document.getElementById('root') as HTMLElement)
-root.render(
-  <React.StrictMode>
-    <App />
-  </React.StrictMode>
-)
+ReactDOM.render(
+  <StrictMode>
+    <AuthProvider>
+      <SettingsProvider>
+        <TitleContextProvider>
+          <BrowserRouter>
+            <App />
+          </BrowserRouter>
+        </TitleContextProvider>
+      </SettingsProvider>
+    </AuthProvider>
+  </StrictMode>,
+  document.getElementById("root")
+);
