@@ -3,11 +3,11 @@ import FlexBox from "components/FlexBox";
 import { H6, Small, Tiny } from "components/Typography";
 import UkoAvatar from "components/UkoAvatar";
 
-const handleEdit = (id:string)=>{
-  console.log('edit',id)
+const handleEdit = (id: string) => {
+  console.log('edit', id)
 
 }
-const handleDelete = ()=>{
+const handleDelete = () => {
   console.log('edit')
 
 }
@@ -56,19 +56,22 @@ const UserListColumnShape = [
     accessor: "project",
     minWidth: 150,
   },
-  {
-    Header: "Action",
-    accessor: "id",
-    minWidth: 100,
-    maxWidth: 100,
-    Cell: ({ value }: any) => (
-      <Grid container flex={1} >
-      <Button variant="contained" onClick={()=>handleEdit(value)} style={{marginBottom:"10px"}}>Edit</Button>
+  // {
+  //   Header: "Action",
+  //   accessor: "action",
+  //   minWidth: 100,
+  //   maxWidth: 100,
+  //   Cell: ({ row }: any) => {
+  //     const { avatar, name, address,id } = row.original;
+  //     return (
+  //     <Grid container flex={1} >
+  //     <Button variant="contained" onClick={()=>handleEdit(id)} style={{marginBottom:"10px"}}>Edit</Button>
 
-      <Button variant="contained">Delete</Button>
-      </Grid>
-    ),
-  },
+  //     <Button variant="contained">Delete</Button>
+  //     </Grid>
+  //     )
+  //   }
+  // },
 ];
 
 export default UserListColumnShape;

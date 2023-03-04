@@ -16,7 +16,9 @@ import {
 } from "@mui/material";
 import FlexBox from "components/FlexBox";
 import { H5 } from "components/Typography";
-import { ChangeEvent, FC, useMemo } from "react";
+import ModalDeleteUser from "pages/userManagement/ModalDeleteUser";
+import ModalEditUser from "pages/userManagement/ModalEditUser";
+import { ChangeEvent, FC, useCallback, useMemo, useState } from "react";
 import {
   useExpanded,
   usePagination,
@@ -96,127 +98,165 @@ const CustomTable: FC<CustomTableProps> = (props) => {
   // table border color
   const borderColor =
     theme.palette.mode === "light" ? "text.secondary" : "divider";
+  const [idChoose, setIdChoose] = useState('')
+  const [isEdit, setIsEdit] = useState(false)
 
+  const handleEdit = useCallback((id: string) => {
+    setIdChoose(id)
+    setIsEdit(true)
+  }, [idChoose])
+  const onClose = useCallback(() => {
+    setIdChoose('')
+    setIsEdit(false)
+    setIsDelete(false)
+
+  }, [idChoose])
+  const [isDelete, setIsDelete] = useState(false)
+  const handleDelete = (id: string) => {
+    setIdChoose(id)
+    setIsDelete(true)
+  }
   return (
-    <Box>
-      <ScrollBar>
-        <Table
-          {...getTableProps()}
-          sx={{
-            borderSpacing: "0 1rem",
-            borderCollapse: "separate",
-          }}
-        >
-          <TableHead>
-            {headerGroups.map((headerGroup: any) => (
-              <TableRow {...headerGroup.getHeaderGroupProps()}>
-                {headerGroup.headers.map((column: any) => (
-                  <TableCell
-                    {...column.getHeaderProps(column.getSortByToggleProps())}
-                    sx={{
-                      paddingY: 0,
-                      fontSize: 13,
-                      fontWeight: 600,
-                      borderBottom: 0,
-                      color: "text.disabled",
-                      width: column.width,
-                      minWidth: column.minWidth,
-                      maxWidth: column.maxWidth,
-                      "&:last-child": { textAlign: "center" },
-                    }}
-                  >
-                    {column.render("Header")}
-                  </TableCell>
-                ))}
-              </TableRow>
-            ))}
-          </TableHead>
-
-          <TableBody {...getTableBodyProps()}>
-            {page.map((row: any) => {
-              prepareRow(row);
-              return (
-                <TableRow
-                  {...row.getRowProps()}
-                  onClick={rowClick && rowClick(row.original)}
-                  sx={{
-                    backgroundColor: "background.paper",
-                    cursor: rowClick ? "pointer" : "unset",
-                    "& td:first-of-type": {
-                      borderLeft: "1px solid",
-                      borderTopLeftRadius: "8px",
-                      borderBottomLeftRadius: "8px",
-                      borderColor,
-                    },
-                    "& td:last-of-type": {
-                      textAlign: "center",
-                      borderRight: "1px solid",
-                      borderTopRightRadius: "8px",
-                      borderBottomRightRadius: "8px",
-                      borderColor,
-                    },
-                    "&:last-of-type .MuiTableCell-root": {
-                      borderBottom:
-                        theme.palette.mode === "dark"
-                          ? `1px solid ${theme.palette.divider} !important`
-                          : `1px solid ${theme.palette.text.secondary} !important`,
-                    },
-                  }}
-                >
-                  {row.cells.map((cell: any) => (
-          
-                  
-                    <TableCell
-                      {...cell.getCellProps()}
-                      sx={{
-                        fontSize: 13,
-                        fontWeight: 500,
-                        color: "text.disabled",
-                        borderTop: "1px solid",
-                        borderBottom: "1px solid",
-                        borderColor,
-                      }}
-                    >
-                      {cell.render("Cell")}
-                     
-                    </TableCell>
-                
-                   
-               
-                  ))}
-                </TableRow>
-              );
-            })}
-          </TableBody>
-        </Table>
-      </ScrollBar>
-
-      {!hidePagination && (
-        <Stack alignItems="flex-end" marginY={1}>
-          <StyledPagination
-            count={pageOptions.length}
-            shape="rounded"
-            onChange={handleChange}
-          />
-        </Stack>
-      )}
-
-      {showFooter && (
-        <FlexBox alignItems="center" justifyContent="space-between">
-          <H5 color="text.disabled">Showing 1-12 of 24 result</H5>
-          <ButtonBase
-            disableRipple
+    <>
+      <Box>
+        <ScrollBar>
+          <Table
+            {...getTableProps()}
             sx={{
-              fontSize: 14,
-              fontWeight: 600,
+              borderSpacing: "0 1rem",
+              borderCollapse: "separate",
             }}
           >
-            See All
-            <ArrowRightAlt sx={{ marginLeft: 0.5 }} />
-          </ButtonBase>
-        </FlexBox>
-      )}
-    </Box>
+            <TableHead>
+              {headerGroups.map((headerGroup: any) => (
+                <TableRow {...headerGroup.getHeaderGroupProps()}>
+                  {headerGroup.headers.map((column: any) => (
+                    <TableCell
+                      {...column.getHeaderProps(column.getSortByToggleProps())}
+                      sx={{
+                        paddingY: 0,
+                        fontSize: 13,
+                        fontWeight: 600,
+                        borderBottom: 0,
+                        color: "text.disabled",
+                        width: column.width,
+                        minWidth: column.minWidth,
+                        maxWidth: column.maxWidth,
+                        "&:last-child": { textAlign: "center" },
+                      }}
+                    >
+                      {column.render("Header")}
+                    </TableCell>
+                  ))}
+                </TableRow>
+              ))}
+            </TableHead>
+
+            <TableBody {...getTableBodyProps()}>
+              {page.map((row: any) => {
+
+                const { avatar, name, address, id } = row.original;
+                console.log('row id', id)
+                prepareRow(row);
+                return (
+                  <TableRow
+                    {...row.getRowProps()}
+                    onClick={rowClick && rowClick(row.original)}
+                    sx={{
+                      backgroundColor: "background.paper",
+                      cursor: rowClick ? "pointer" : "unset",
+                      "& td:first-of-type": {
+                        borderLeft: "1px solid",
+                        borderTopLeftRadius: "8px",
+                        borderBottomLeftRadius: "8px",
+                        borderColor,
+                      },
+                      "& td:last-of-type": {
+                        textAlign: "center",
+                        borderRight: "1px solid",
+                        borderTopRightRadius: "8px",
+                        borderBottomRightRadius: "8px",
+                        borderColor,
+                      },
+                      "&:last-of-type .MuiTableCell-root": {
+                        borderBottom:
+                          theme.palette.mode === "dark"
+                            ? `1px solid ${theme.palette.divider} !important`
+                            : `1px solid ${theme.palette.text.secondary} !important`,
+                      },
+                    }}
+                  >
+                    {row.cells.map((cell: any) => {
+                      return (
+                        <>
+                          <TableCell
+                            {...cell.getCellProps()}
+                            sx={{
+                              fontSize: 13,
+                              fontWeight: 500,
+                              color: "text.disabled",
+                              borderTop: "1px solid",
+                              borderBottom: "1px solid",
+                              borderColor,
+                            }}
+                          >
+                            {cell.render("Cell")}
+
+                          </TableCell>
+
+                        </>
+                      )
+                    }
+                    )}
+                    <TableCell role="cell">
+                      <Grid sm={3} justifyContent="end">
+
+                        <Button variant="contained" style={{ marginRight: 10 }} onClick={() => handleEdit(id)} >Edit</Button>
+
+
+                        <Button variant="contained" color="error" onClick={() => handleDelete(id)}>Delete</Button>
+
+                      </Grid>
+                    </TableCell>
+                  </TableRow>
+                );
+              })}
+
+            </TableBody>
+          </Table>
+        </ScrollBar>
+
+        {!hidePagination && (
+          <Stack alignItems="flex-end" marginY={1}>
+            <StyledPagination
+              count={pageOptions.length}
+              shape="rounded"
+              onChange={handleChange}
+            />
+          </Stack>
+        )}
+
+        {showFooter && (
+          <FlexBox alignItems="center" justifyContent="space-between">
+            <H5 color="text.disabled">Showing 1-12 of 24 result</H5>
+            <ButtonBase
+              disableRipple
+              sx={{
+                fontSize: 14,
+                fontWeight: 600,
+              }}
+            >
+              See All
+              <ArrowRightAlt sx={{ marginLeft: 0.5 }} />
+            </ButtonBase>
+          </FlexBox>
+        )}
+      </Box>
+
+      <ModalEditUser open={!!idChoose && isEdit} handleClose={onClose} />
+      <ModalDeleteUser id={idChoose} open={!!idChoose && isDelete} handleClose={onClose} />
+
+    </>
   );
 };
 
