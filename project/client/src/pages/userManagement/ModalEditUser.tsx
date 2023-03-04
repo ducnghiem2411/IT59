@@ -2,13 +2,13 @@ import { Box, Button, Dialog, DialogActions, DialogContent, DialogContentText, D
 import { FC, useState } from "react";
 
 interface ModalEditUserProps {
+  id: string,
   open?: boolean,
   handleClose: () => void
 }
-const ModalEditUser = ({ open = false, handleClose }: ModalEditUserProps) => {
-  //TODO get initial value when show popup
+const ModalEditUser = ({ id, open = false, handleClose }: ModalEditUserProps) => {
+  //TODO get initial value from id when show popup
   const [infoEdit, setInfoEdit] = useState({
-    id: "615193a4c7e1363df77b9929",
     name: "Natalie Dormer",
     role: "UI Designer",
     company: "Tesla",
@@ -17,7 +17,7 @@ const ModalEditUser = ({ open = false, handleClose }: ModalEditUserProps) => {
     address: "Arizona, USA",
     project: "Project X",
   })
-  const { id, name, role, company, avatar, verified, address, project } = infoEdit
+  const { name, role, company, avatar, verified, address, project } = infoEdit
   //Notice: change field when "name" input equal param
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setInfoEdit({

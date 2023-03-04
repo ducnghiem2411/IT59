@@ -253,7 +253,7 @@ const CustomTable: FC<CustomTableProps> = (props) => {
         )}
       </Box>
 
-      <ModalEditUser open={!!idChoose && isEdit} handleClose={onClose} />
+      <ModalEditUser id={idChoose} open={!!idChoose && isEdit} handleClose={onClose} />
       <ModalDeleteUser id={idChoose} open={!!idChoose && isDelete} handleClose={onClose} />
 
     </>
