@@ -6,11 +6,11 @@ import { FC, lazy, LazyExoticComponent, Suspense } from "react";
 import { Navigate } from "react-router-dom";
 
 const Loadable = (Component: LazyExoticComponent<FC>) => (props: any) =>
-  (
-    <Suspense fallback={<LoadingScreen />}>
-      <Component {...props} />
-    </Suspense>
-  );
+(
+  <Suspense fallback={<LoadingScreen />}>
+    <Component {...props} />
+  </Suspense>
+);
 
 // authentication pages
 const Login = Loadable(lazy(() => import("./pages/authentication/Login")));
@@ -45,7 +45,7 @@ const Error = Loadable(lazy(() => import("./pages/404")));
 const routes = [
   {
     path: "/",
-    element: <Navigate to="dashboard" />,
+    element: <Navigate to="homepage" />,
   },
   {
     path: "login",
@@ -68,7 +68,7 @@ const routes = [
     element: (
       <DashboardLayout >
         <UserList />
-        </DashboardLayout>
+      </DashboardLayout>
     ),
   },
   {
