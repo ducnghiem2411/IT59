@@ -56,14 +56,6 @@ const routes = [
     ),
   },
   {
-    path: "register",
-    element: (
-      <GuestGuard>
-        <Register />
-      </GuestGuard>
-    ),
-  },
-  {
     path: "forget-password",
     element: (
       <GuestGuard>
@@ -72,11 +64,20 @@ const routes = [
     ),
   },
   {
+    path: "homepage",
+    element: (
+      <DashboardLayout >
+        <UserList />
+        </DashboardLayout>
+    ),
+  },
+  {
     path: "dashboard",
     element: (
-      <AuthGuard>
-        <DashboardLayout />
-      </AuthGuard>
+      <DashboardLayout />
+      // <AuthGuard>
+      //   <DashboardLayout />
+      // </AuthGuard>
     ),
     children: [
       {

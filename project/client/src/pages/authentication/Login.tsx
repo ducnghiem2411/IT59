@@ -91,23 +91,8 @@ const Login: FC = () => {
         </FlexBox>
 
         <FlexBox justifyContent="space-between" flexWrap="wrap" my="1rem">
-          <SocialIconButton
-            // onClick={loginWithGoogle}
-            startIcon={<GoogleIcon sx={{ mr: 1 }} />}
-          >
-            Sign in with Google
-          </SocialIconButton>
-          <SocialIconButton
-            // onClick={loginWithFacebook}
-            startIcon={<FacebookIcon sx={{ mr: 1 }} />}
-          >
-            Sign in with Facebook
-          </SocialIconButton>
-
+          
           <Divider sx={{ my: 3, width: "100%", alignItems: "flex-start" }}>
-            <H3 color="text.disabled" px={1}>
-              Or
-            </H3>
           </Divider>
 
           <form noValidate onSubmit={handleSubmit} style={{ width: "100%" }}>
@@ -189,12 +174,6 @@ const Login: FC = () => {
             </Box>
           </form>
 
-          <Small margin="auto" mt={3} color="text.disabled">
-            Don't have an account?{" "}
-            <Link to="/register">
-              <Small color="primary.main">Create an account</Small>
-            </Link>
-          </Small>
         </FlexBox>
       </Card>
     </FlexBox>

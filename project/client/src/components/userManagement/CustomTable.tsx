@@ -1,7 +1,9 @@
 import { ArrowRightAlt } from "@mui/icons-material";
 import {
   Box,
+  Button,
   ButtonBase,
+  Grid,
   Pagination,
   Stack,
   styled,
@@ -162,6 +164,8 @@ const CustomTable: FC<CustomTableProps> = (props) => {
                   }}
                 >
                   {row.cells.map((cell: any) => (
+          
+                  
                     <TableCell
                       {...cell.getCellProps()}
                       sx={{
@@ -174,7 +178,11 @@ const CustomTable: FC<CustomTableProps> = (props) => {
                       }}
                     >
                       {cell.render("Cell")}
+                     
                     </TableCell>
+                
+                   
+               
                   ))}
                 </TableRow>
               );
