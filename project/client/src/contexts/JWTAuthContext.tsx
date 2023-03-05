@@ -114,12 +114,8 @@ const AuthContext = createContext({
     Promise.resolve(),
 });
 
-// props type
-type AuthProviderProps = {
-  children: ReactNode;
-};
 
-export const AuthProvider = ({ children }: AuthProviderProps) => {
+export const AuthProvider = ({ children }: { children: ReactNode }) => {
   const [state, dispatch] = useReducer(reducer, initialState);
 
   const login = async (email: string, password: string) => {

@@ -1,10 +1,10 @@
 import { Box, Grid, useTheme } from "@mui/material";
-import Analytics from "components/Dashboards/saas/Analytics";
-import SaaSCard from "components/Dashboards/saas/Card";
-import Footer from "components/Dashboards/saas/Footer";
-import RecentOrders from "components/Dashboards/saas/RecentOrders";
-import TopSelling from "components/Dashboards/saas/TopSelling";
-import TotalSpent from "components/Dashboards/saas/TotalSpent";
+import Analytics from "components/Dashboards/Analytics";
+import SaaSCard from "components/Dashboards/Card";
+import Footer from "components/Dashboards/Footer";
+import RecentOrders from "components/Dashboards/RecentOrders";
+import TopSelling from "components/Dashboards/TopSelling";
+import TotalSpent from "components/Dashboards/TotalSpent";
 import BucketIcon from "icons/BucketIcon";
 import EarningIcon from "icons/EarningIcon";
 import PeopleIcon from "icons/PeopleIcon";

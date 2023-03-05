@@ -10,7 +10,6 @@ import { H2 } from "components/Typography";
 import { FC } from "react";
 import NotificationsPopover from "./popovers/NotificationsPopover";
 import ProfilePopover from "./popovers/ProfilePopover";
-import ServicePopover from "./popovers/ServicePopover";
 
 // root component interface
 interface DashboardNavBarProps {
@@ -92,16 +91,13 @@ const DashboardNavbar: FC<DashboardNavBarProps> = ({
           fontWeight="700"
           color="text.primary"
         >
-          Title contexxxtt
+          Account list
         </H2>
 
         <Box flexGrow={1} ml={1} />
 
         {upSm && (
-          <>
-            <NotificationsPopover />
-            <ServicePopover />
-          </>
+          <NotificationsPopover />
         )}
         <ProfilePopover />
       </StyledToolBar>

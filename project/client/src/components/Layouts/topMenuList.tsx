@@ -2,8 +2,6 @@
 import { PersonAdd, Login, People } from "@mui/icons-material";
 import ClassIcon from '@mui/icons-material/Class';
 import HomeIcon from '@mui/icons-material/Home';
-import SessionsIcon from "../../icons/Sessions";
-import UserManagementIcon from '../../icons/UserManagement'
 
 const index = [
   {
