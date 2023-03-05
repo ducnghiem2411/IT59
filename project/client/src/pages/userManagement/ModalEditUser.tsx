@@ -1,23 +1,33 @@
-import { Box, Button, Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle, FormControl, Grid, Input, InputLabel, styled, TextField, Typography } from "@mui/material";
-import { FC, useState } from "react";
+import {
+  Button,
+  Dialog,
+  DialogActions,
+  DialogContent,
+  DialogTitle,
+  FormControl,
+  TextField,
+  Typography
+} from '@mui/material'
+import { useState } from 'react'
 
 interface ModalEditUserProps {
-  open?: boolean,
+  open?: boolean
   handleClose: () => void
 }
 const ModalEditUser = ({ open = false, handleClose }: ModalEditUserProps) => {
   //TODO get initial value when show popup
   const [infoEdit, setInfoEdit] = useState({
-    id: "615193a4c7e1363df77b9929",
-    name: "Natalie Dormer",
-    role: "UI Designer",
-    company: "Tesla",
-    avatar: "/static/avatar/001-man.svg",
-    verified: "Yes",
-    address: "Arizona, USA",
-    project: "Project X",
+    id: '615193a4c7e1363df77b9929',
+    name: 'Natalie Dormer',
+    role: 'UI Designer',
+    company: 'Tesla',
+    avatar: '/static/avatar/001-man.svg',
+    verified: 'Yes',
+    address: 'Arizona, USA',
+    project: 'Project X'
   })
-  const { id, name, role, company, avatar, verified, address, project } = infoEdit
+  const { id, name, role, company, avatar, verified, address, project } =
+    infoEdit
   //Notice: change field when "name" input equal param
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setInfoEdit({
@@ -31,75 +41,67 @@ const ModalEditUser = ({ open = false, handleClose }: ModalEditUserProps) => {
   }
   return (
     <Dialog open={open} onClose={handleClose}>
-      <DialogTitle variant="h5">Edit user list</DialogTitle>
+      <DialogTitle variant='h5'>Edit user list</DialogTitle>
       <DialogContent>
-        {/* <DialogContentText>
-          To subscribe to this website, please enter your email address here. We
-          will send updates occasionally.
-        </DialogContentText> */}
-        <FormControl fullWidth margin="normal">
-          <Typography variant="h6">Name</Typography>
+        <FormControl fullWidth margin='normal'>
+          <Typography variant='h6'>Name</Typography>
           <TextField
             autoFocus
-            margin="dense"
-            name="name"
-            type="text"
+            margin='dense'
+            name='name'
+            type='text'
             fullWidth
-            variant="standard"
+            variant='standard'
             value={name}
             onChange={handleChange}
           />
-
         </FormControl>
-        <FormControl fullWidth margin="normal">
-          <Typography variant="h6">Role</Typography>
+        <FormControl fullWidth margin='normal'>
+          <Typography variant='h6'>Role</Typography>
           <TextField
             autoFocus
-            margin="dense"
-            name="role"
-            type="text"
+            margin='dense'
+            name='role'
+            type='text'
             fullWidth
-            variant="standard"
+            variant='standard'
             value={role}
             onChange={handleChange}
           />
         </FormControl>
-        <FormControl fullWidth margin="normal">
-          <Typography variant="h6">Company</Typography>
+        <FormControl fullWidth margin='normal'>
+          <Typography variant='h6'>Company</Typography>
           <TextField
             autoFocus
-            margin="dense"
-            name="company"
-            type="text"
+            margin='dense'
+            name='company'
+            type='text'
             fullWidth
-            variant="standard"
+            variant='standard'
             value={company}
             onChange={handleChange}
           />
         </FormControl>
-        <FormControl fullWidth margin="normal">
-          <Typography variant="h6">Address</Typography>
+        <FormControl fullWidth margin='normal'>
+          <Typography variant='h6'>Address</Typography>
           <TextField
             autoFocus
-            margin="dense"
-            name="address"
-            type="text"
+            margin='dense'
+            name='address'
+            type='text'
             fullWidth
-            variant="standard"
+            variant='standard'
             value={address}
             onChange={handleChange}
           />
         </FormControl>
-
-
       </DialogContent>
       <DialogActions>
         <Button onClick={() => handleEdit(id)}>Confirm</Button>
         <Button onClick={handleClose}>Cancel</Button>
       </DialogActions>
     </Dialog>
-  );
-};
+  )
+}
 
-
-export default ModalEditUser;
+export default ModalEditUser

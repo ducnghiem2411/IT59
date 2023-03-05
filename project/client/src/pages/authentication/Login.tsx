@@ -1,4 +1,4 @@
-import { LoadingButton } from "@mui/lab";
+import { LoadingButton } from '@mui/lab'
 import {
   Box,
   Button,
@@ -6,107 +6,108 @@ import {
   Divider,
   FormControlLabel,
   FormHelperText,
-  Switch,
-} from "@mui/material";
-import {
-  TextFieldWrapper,
-} from "components/authentication/StyledComponents";
-import FlexBox from "components/FlexBox";
-import LightTextField from "components/LightTextField";
-import { H1, Paragraph, Small } from "components/Typography";
-import { useFormik } from "formik";
-import useAuth from "hooks/useAuth";
-import { FC, useState } from "react";
-import toast from "react-hot-toast";
-import { Link, useNavigate } from "react-router-dom";
-import * as Yup from "yup";
+  Switch
+} from '@mui/material'
+import { TextFieldWrapper } from 'components/authentication/StyledComponents'
+import FlexBox from 'components/FlexBox'
+import LightTextField from 'components/LightTextField'
+import { H1, Paragraph, Small } from 'components/Typography'
+import { useFormik } from 'formik'
+import useAuth from 'hooks/useAuth'
+import { FC, useState } from 'react'
+import toast from 'react-hot-toast'
+import { Link, useNavigate } from 'react-router-dom'
+import * as Yup from 'yup'
+import { signIn } from '../../api/users'
 
 const Login: FC = () => {
-  const { login } = useAuth();
-  const [error, setError] = useState("");
-  const [loading, setLoading] = useState(false);
-  let navigate = useNavigate();
+  const { login } = useAuth()
+  const [error, setError] = useState('')
+  const [loading, setLoading] = useState(false)
+  let navigate = useNavigate()
 
   const initialValues = {
-    email: "demo@example.com",
-    password: "v&)3?2]:",
+    username: 'admin02',
+    password: '123123',
     submit: null,
-    remember: true,
-  };
-  // form field value validation schema
+    remember: true
+  }
+
   const validationSchema = Yup.object().shape({
-    email: Yup.string()
-      .email("Must be a valid email")
+    username: Yup.string()
       .max(255)
-      .required("Email is required"),
+      .required('Username is required'),
     password: Yup.string()
-      .min(6, "Password should be of minimum 6 characters length")
-      .required("Password is required"),
-  });
+      .min(6, 'Password should be of minimum 6 characters length')
+      .required('Password is required')
+  })
 
   const { errors, values, touched, handleBlur, handleChange, handleSubmit } =
     useFormik({
       initialValues,
       validationSchema,
-      onSubmit: (values: any) => {
-        setLoading(true);
-        login(values.email, values.password)
+      onSubmit: async (values: any) => {
+        setLoading(true)
+
+        const response = await signIn(values.username, values.password)
+
+        login(values.username, values.password)
           .then(() => {
-            setLoading(false);
-            toast.success("You Logged In Successfully test");
-            navigate("/dashboard");
+            setLoading(false)
+            toast.success('You Logged In Successfully test')
+            navigate('/dashboard')
           })
           .catch((error) => {
-            setError(error.message);
-            setLoading(false);
-          });
-      },
-    });
+            setError(error.message)
+            setLoading(false)
+          })
+      }
+    })
 
   return (
     <FlexBox
       sx={{
-        alignItems: "center",
-        flexDirection: "column",
-        justifyContent: "center",
-        height: { sm: "100%" },
+        alignItems: 'center',
+        flexDirection: 'column',
+        justifyContent: 'center',
+        height: { sm: '100%' }
       }}
     >
       <Card sx={{ padding: 4, maxWidth: 600, boxShadow: 20 }}>
         <FlexBox
-          alignItems="center"
-          flexDirection="column"
-          justifyContent="center"
+          alignItems='center'
+          flexDirection='column'
+          justifyContent='center'
           mb={5}
         >
           <Box width={38} mb={1}>
-            <img src="/static/logo/logo.svg" width="100%" alt="Uko Logo" />
+            <img src='/static/logo/logo.svg' width='100%' alt='Uko Logo' />
           </Box>
           <H1 fontSize={24} fontWeight={700}>
             Sign In to Uko
           </H1>
         </FlexBox>
 
-        <FlexBox justifyContent="space-between" flexWrap="wrap" my="1rem">
-          
-          <Divider sx={{ my: 3, width: "100%", alignItems: "flex-start" }}>
-          </Divider>
+        <FlexBox justifyContent='space-between' flexWrap='wrap' my='1rem'>
+          <Divider
+            sx={{ my: 3, width: '100%', alignItems: 'flex-start' }}
+          ></Divider>
 
-          <form noValidate onSubmit={handleSubmit} style={{ width: "100%" }}>
-            <FlexBox justifyContent="space-between" flexWrap="wrap">
+          <form noValidate onSubmit={handleSubmit} style={{ width: '100%' }}>
+            <FlexBox justifyContent='space-between' flexWrap='wrap'>
               <TextFieldWrapper>
                 <Paragraph fontWeight={600} mb={1}>
-                  Email
+                  Username
                 </Paragraph>
                 <LightTextField
                   fullWidth
-                  name="email"
-                  type="email"
+                  name='email'
+                  type='email'
                   onBlur={handleBlur}
                   onChange={handleChange}
-                  value={values.email || ""}
-                  error={Boolean(touched.email && errors.email)}
-                  helperText={touched.email && errors.email}
+                  value={values.username || ''}
+                  error={Boolean(touched.username && errors.username)}
+                  helperText={touched.username && errors.username}
                 />
               </TextFieldWrapper>
 
@@ -116,31 +117,31 @@ const Login: FC = () => {
                 </Paragraph>
                 <LightTextField
                   fullWidth
-                  name="password"
-                  type="password"
+                  name='password'
+                  type='password'
                   onBlur={handleBlur}
                   onChange={handleChange}
-                  value={values.password || ""}
+                  value={values.password || ''}
                   error={Boolean(touched.password && errors.password)}
                   helperText={touched.password && errors.password}
                 />
               </TextFieldWrapper>
             </FlexBox>
 
-            <FlexBox mt={2} alignItems="center" justifyContent="space-between">
+            <FlexBox mt={2} alignItems='center' justifyContent='space-between'>
               <FormControlLabel
                 control={
                   <Switch
-                    name="remember"
+                    name='remember'
                     checked={values.remember}
                     onChange={handleChange}
                   />
                 }
-                label="Remember Me"
-                sx={{ "& .MuiTypography-root": { fontWeight: 600 } }}
+                label='Remember Me'
+                sx={{ '& .MuiTypography-root': { fontWeight: 600 } }}
               />
-              <Link to="/forget-password">
-                <Small color="secondary.red">Forgot Password?</Small>
+              <Link to='/forget-password'>
+                <Small color='secondary.red'>Forgot Password?</Small>
               </Link>
             </FlexBox>
 
@@ -151,7 +152,7 @@ const Login: FC = () => {
                   mt: 2,
                   fontSize: 13,
                   fontWeight: 500,
-                  textAlign: "center",
+                  textAlign: 'center'
                 }}
               >
                 {error}
@@ -160,11 +161,11 @@ const Login: FC = () => {
 
             <Box sx={{ mt: 4 }}>
               {loading ? (
-                <LoadingButton loading fullWidth variant="contained">
+                <LoadingButton loading fullWidth variant='contained'>
                   Sign In
                 </LoadingButton>
               ) : (
-                <Button fullWidth type="submit" variant="contained">
+                <Button fullWidth type='submit' variant='contained'>
                   Sign In
                 </Button>
               )}
@@ -173,7 +174,7 @@ const Login: FC = () => {
         </FlexBox>
       </Card>
     </FlexBox>
-  );
-};
+  )
+}
 
-export default Login;
+export default Login

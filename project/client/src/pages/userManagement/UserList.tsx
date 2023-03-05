@@ -4,7 +4,6 @@ import SearchInput from "components/SearchInput";
 import UserListColumnShape from "components/userManagement/columnShape";
 import CustomTable from "components/userManagement/CustomTable";
 import { userListFakeData } from "components/userManagement/fakeData";
-import useTitle from "hooks/useTitle";
 import { FC } from "react";
 import { useNavigate } from "react-router-dom";
 
@@ -26,8 +25,6 @@ const StyledFlexBox = styled(FlexBox)(({ theme }) => ({
 
 const UserList: FC = () => {
   // change navbar title
-  useTitle("User List");
-
   const navigate = useNavigate();
   const handleAddUser = () => navigate("/dashboard/add-user");
 

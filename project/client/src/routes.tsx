@@ -1,4 +1,3 @@
-import AuthGuard from "components/authentication/AuthGuard";
 import GuestGuard from "components/authentication/GuestGuard";
 import DashboardLayout from "components/Layouts/DashboardLayout";
 import LoadingScreen from "components/LoadingScreen";
@@ -14,9 +13,7 @@ const Loadable = (Component: LazyExoticComponent<FC>) => (props: any) =>
 
 // authentication pages
 const Login = Loadable(lazy(() => import("./pages/authentication/Login")));
-const Register = Loadable(
-  lazy(() => import("./pages/authentication/Register"))
-);
+
 const ForgetPassword = Loadable(
   lazy(() => import("./pages/authentication/ForgetPassword"))
 );

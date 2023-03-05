@@ -1,16 +1,7 @@
-import { Button, Grid } from "@mui/material"
 import FlexBox from "components/FlexBox";
 import { H6, Small, Tiny } from "components/Typography";
 import UkoAvatar from "components/UkoAvatar";
 
-const handleEdit = (id: string) => {
-  console.log('edit', id)
-
-}
-const handleDelete = () => {
-  console.log('edit')
-
-}
 const UserListColumnShape = [
   {
     Header: "Name",
@@ -56,22 +47,6 @@ const UserListColumnShape = [
     accessor: "project",
     minWidth: 150,
   },
-  // {
-  //   Header: "Action",
-  //   accessor: "action",
-  //   minWidth: 100,
-  //   maxWidth: 100,
-  //   Cell: ({ row }: any) => {
-  //     const { avatar, name, address,id } = row.original;
-  //     return (
-  //     <Grid container flex={1} >
-  //     <Button variant="contained" onClick={()=>handleEdit(id)} style={{marginBottom:"10px"}}>Edit</Button>
-
-  //     <Button variant="contained">Delete</Button>
-  //     </Grid>
-  //     )
-  //   }
-  // },
 ];
 
 export default UserListColumnShape;

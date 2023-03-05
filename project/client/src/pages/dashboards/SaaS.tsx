@@ -5,7 +5,6 @@ import Footer from "components/Dashboards/saas/Footer";
 import RecentOrders from "components/Dashboards/saas/RecentOrders";
 import TopSelling from "components/Dashboards/saas/TopSelling";
 import TotalSpent from "components/Dashboards/saas/TotalSpent";
-import useTitle from "hooks/useTitle";
 import BucketIcon from "icons/BucketIcon";
 import EarningIcon from "icons/EarningIcon";
 import PeopleIcon from "icons/PeopleIcon";
@@ -14,7 +13,6 @@ import { FC } from "react";
 
 const SaaS: FC = () => {
   // change navbar title
-  useTitle("Saas");
 
   const theme = useTheme();
 

@@ -12,7 +12,6 @@ import {
 import LightTextField from "components/LightTextField";
 import { Small, Tiny } from "components/Typography";
 import { useFormik } from "formik";
-import useTitle from "hooks/useTitle";
 import { FC } from "react";
 import * as Yup from "yup";
 
@@ -55,7 +54,6 @@ const SwitchWrapper = styled(Box)(() => ({
 
 const AddNewUser: FC = () => {
   // change navbar title
-  useTitle("Add New User");
 
   const initialValues = {
     fullName: "",

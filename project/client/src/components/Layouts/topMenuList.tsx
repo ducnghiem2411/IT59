@@ -1,41 +1,36 @@
-import Icons from "icons/sidebar";
+
+import { PersonAdd, Login, People } from "@mui/icons-material";
+import ClassIcon from '@mui/icons-material/Class';
+import HomeIcon from '@mui/icons-material/Home';
+import SessionsIcon from "../../icons/Sessions";
+import UserManagementIcon from '../../icons/UserManagement'
 
 const index = [
   {
-    title: "Dashboard",
-    Icon: Icons.DashboardIcon,
-    path: "/dashboard",
+    title: "Homepage",
+    Icon: HomeIcon,
+    path: "/",
   },
   {
-    title: "User Profile",
-    Icon: Icons.UserProfileIcon,
-    path: "/dashboard/user-profile",
+    title: "Classroom List",
+    Icon: ClassIcon,
+    path: "/classroom",
   },
   {
-    title: "User Grid",
-    Icon: Icons.UserGridIcon,
-    path: "/dashboard/user-grid",
+    title: "Account List",
+    Icon: People,
+    path: "/account",
   },
   {
-    title: "User List",
-    Icon: Icons.UserManagementIcon,
-    path: "/dashboard/user-list",
-  },
-  {
-    title: "Add user",
-    Icon: Icons.AddUserIcon,
+    title: "Create account",
+    Icon: PersonAdd,
     path: "/dashboard/add-user",
   },
   {
     title: "Login",
-    Icon: Icons.LoginIcon,
+    Icon: Login,
     path: "/login",
-  },
-  {
-    title: "Register",
-    Icon: Icons.SessionsIcon,
-    path: "/Register",
-  },
+  }
 ];
 
 export default index;

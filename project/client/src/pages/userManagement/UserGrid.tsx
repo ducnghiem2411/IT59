@@ -2,7 +2,6 @@ import { Box, Button, Grid, styled } from "@mui/material";
 import FlexBox from "components/FlexBox";
 import SearchInput from "components/SearchInput";
 import UserCard from "components/userManagement/UserCard";
-import useTitle from "hooks/useTitle";
 import { FC } from "react";
 import { useNavigate } from "react-router-dom";
 
@@ -24,8 +23,6 @@ const StyledFlexBox = styled(FlexBox)(({ theme }) => ({
 
 const UserGrid: FC = () => {
   // change navbar title
-  useTitle("User Grid");
-
   const navigate = useNavigate();
   const handleAddUser = () => navigate("/dashboard/add-user");
 

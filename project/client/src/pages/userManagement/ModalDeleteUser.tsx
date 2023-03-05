@@ -1,5 +1,4 @@
-import { Box, Button, Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle, FormControl, Grid, Input, InputLabel, styled, TextField, Typography } from "@mui/material";
-import { FC, useState } from "react";
+import { Button, Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle } from "@mui/material";
 
 interface ModalDeleteUserProps {
     id: string,
@@ -22,8 +21,6 @@ const ModalDeleteUser = ({ id, open = false, handleClose }: ModalDeleteUserProps
                     <Typography variant="h6">Name</Typography>
             
                 </FormControl> */}
-
-
             </DialogContent>
             <DialogActions>
                 <Button onClick={() => handleDelete(id)}>Confirm</Button>

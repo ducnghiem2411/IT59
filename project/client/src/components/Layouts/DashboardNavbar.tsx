@@ -7,9 +7,7 @@ import {
   useMediaQuery,
 } from "@mui/material";
 import { H2 } from "components/Typography";
-import { TitleContext } from "contexts/TitleContext";
-import { FC, useContext } from "react";
-import LanguagePopover from "./popovers/LanguagePopover";
+import { FC } from "react";
 import NotificationsPopover from "./popovers/NotificationsPopover";
 import ProfilePopover from "./popovers/ProfilePopover";
 import ServicePopover from "./popovers/ServicePopover";
@@ -50,7 +48,6 @@ const ToggleIcon = styled(Box)(({ theme }) => ({
 const DashboardNavbar: FC<DashboardNavBarProps> = ({
   setShowMobileSideBar,
 }) => {
-  const { title } = useContext(TitleContext);
   const upSm = useMediaQuery((theme: Theme) => theme.breakpoints.up("sm"));
   const downSm = useMediaQuery((theme: Theme) => theme.breakpoints.down("sm"));
 
@@ -73,7 +70,6 @@ const DashboardNavbar: FC<DashboardNavBarProps> = ({
             />
           </Box>
 
-          <LanguagePopover />
           <ProfilePopover />
         </StyledToolBar>
       </DashboardNavbarRoot>
@@ -96,14 +92,13 @@ const DashboardNavbar: FC<DashboardNavBarProps> = ({
           fontWeight="700"
           color="text.primary"
         >
-          {title}
+          Title contexxxtt
         </H2>
 
         <Box flexGrow={1} ml={1} />
 
         {upSm && (
           <>
-            <LanguagePopover />
             <NotificationsPopover />
             <ServicePopover />
           </>

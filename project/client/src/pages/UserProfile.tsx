@@ -9,7 +9,6 @@ import FriendCard from "components/userProfile/FriendCard";
 import Gallery from "components/userProfile/Gallery";
 import Profile from "components/userProfile/Profile";
 import useAuth from "hooks/useAuth";
-import useTitle from "hooks/useTitle";
 import { FC, SyntheticEvent, useState } from "react";
 
 // styled components
@@ -52,7 +51,6 @@ const StyledTabPanel = styled(TabPanel)(() => ({
 
 const UserProfile: FC = () => {
   // change navbar title
-  useTitle("User Profile");
   const { user } = useAuth();
 
   const [value, setValue] = useState("1");

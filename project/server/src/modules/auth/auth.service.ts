@@ -43,6 +43,11 @@ export async function login({ accountName, password }: SignIn): Promise<string |
       accountId: account.accountId,
       accountName: account.accountName,
       accountType: account.accountType,
+      classroomId: account.classroomId,
+      email: account.email,
+      fullName: account.fullName,
+      image: account.image,
+      phone: account.phone
     })
   }
 }
