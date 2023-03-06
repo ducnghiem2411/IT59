@@ -96,3 +96,15 @@ export async function signIn(username: string, password: string) {
     throw error
   }
 }
+
+export async function getAccountList(page: number, pageSize: number) {
+  try {
+    const response = await apiInstance().get(`/account?page=${page}&pageSize=${pageSize}`)
+
+    const data: any = response.data
+
+    return data.data
+  } catch (error) {
+    throw error
+  }
+}

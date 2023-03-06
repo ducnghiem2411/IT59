@@ -45,7 +45,7 @@ const routes = [
     element: <Navigate to="homepage" />,
   },
   {
-    path: "login",
+    path: "/login",
     element: (
       <GuestGuard>
         <Login />
@@ -53,7 +53,7 @@ const routes = [
     ),
   },
   {
-    path: "forget-password",
+    path: "/forget-password",
     element: (
       <GuestGuard>
         <ForgetPassword />
@@ -61,13 +61,22 @@ const routes = [
     ),
   },
   {
-    path: "homepage",
+    path: "/homepage",
     element: (
       <DashboardLayout >
         <UserList />
       </DashboardLayout>
     ),
   },
+  {
+    path: "/classroom",
+    element: (
+      <DashboardLayout >
+        <ClassroomGrid />
+      </DashboardLayout>
+    ),
+  },
+
   {
     path: "dashboard",
     element: (
