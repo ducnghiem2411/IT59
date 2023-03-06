@@ -14,7 +14,7 @@ import { H5, H6, Small, Tiny } from "components/Typography";
 import CommentIcon from "icons/CommentIcon";
 import ShareIcon from "icons/ShareIcon";
 import UploadIcon from "icons/UploadIcon";
-import React, { FC, MouseEvent } from "react";
+import { FC, MouseEvent } from "react";
 
 // component props interface
 interface PostCardProps {

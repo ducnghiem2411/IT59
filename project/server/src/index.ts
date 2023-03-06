@@ -4,9 +4,11 @@ import bodyParser from 'body-parser'
 import { PORT, DB_URI } from './shared/config'
 import { connectMongo } from './mongodb'
 import { indexRouter } from './modules/index.route'
+import { insertDataseed } from './script/script.insert.dataseed'
 
-;(async () => {
+(async () => {
   await connectMongo(DB_URI)
+  await insertDataseed()
   const app = express()
 
   app.use(cors())

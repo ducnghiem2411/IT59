@@ -4,7 +4,8 @@ export interface Classroom {
     _id?: ObjectId
     classroomId: string
     classroomName: string
-    teacherId: string[]
+    teachersId: string[]
+    teacherCount: number
     studentsId: string[]
     studentCount: number
     createdAt: number

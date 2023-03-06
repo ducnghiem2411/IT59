@@ -2,7 +2,7 @@ import { Box, Button, Grid, styled } from "@mui/material";
 import FlexBox from "components/FlexBox";
 import SearchInput from "components/SearchInput";
 import UserCard from "components/userManagement/UserCard";
-import { FC } from "react";
+import { FC, useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 
 // styled component
@@ -21,17 +21,22 @@ const StyledFlexBox = styled(FlexBox)(({ theme }) => ({
   },
 }));
 
-const UserGrid: FC = () => {
+const ClassroomGrid: FC = () => {
   // change navbar title
+
   const navigate = useNavigate();
-  const handleAddUser = () => navigate("/dashboard/add-user");
+  const handleAddClass = () => navigate("/dashboard/add-user");
+  const [] = useState()
+  useEffect(() => {
+    
+  })
 
   return (
     <Box pt={2} pb={4}>
       <StyledFlexBox>
-        <SearchInput placeholder="Search user..." />
-        <Button variant="contained" onClick={handleAddUser}>
-          Add New User
+        <SearchInput placeholder="Search classroom..." />
+        <Button variant="contained" onClick={handleAddClass}>
+          Add New Classroom
         </Button>
       </StyledFlexBox>
 
@@ -103,4 +108,4 @@ const userList = [
   },
 ];
 
-export default UserGrid;
+export default ClassroomGrid;

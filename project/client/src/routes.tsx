@@ -28,8 +28,8 @@ const UserProfile = Loadable(lazy(() => import("./pages/UserProfile")));
 const UserList = Loadable(
   lazy(() => import("./pages/userManagement/UserList"))
 );
-const UserGrid = Loadable(
-  lazy(() => import("./pages/userManagement/UserGrid"))
+const ClassroomGrid = Loadable(
+  lazy(() => import("./pages/classroomManagement/ClassroomGrid"))
 );
 const AddNewUser = Loadable(
   lazy(() => import("./pages/userManagement/AddNewUser"))
@@ -91,7 +91,7 @@ const routes = [
       },
       {
         path: "user-grid",
-        element: <UserGrid />,
+        element: <ClassroomGrid />,
       },
       {
         path: "add-user",

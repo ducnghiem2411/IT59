@@ -49,51 +49,6 @@ Mock.onPost('/api/auth/login').reply(async (config) => {
   }
 })
 
-Mock.onPost('/api/auth/register').reply(async (config) => {
-  try {
-    await new Promise((resolve) => setTimeout(resolve, 1000))
-
-    const { email, username } = JSON.parse(config.data)
-    const user = userList.find((user) => user.email === email)
-    if (user) {
-      return [400, { message: 'User already exists!' }]
-    }
-
-    const newUser = {
-      id: 2,
-      role: 'GUEST',
-      name: '',
-      username: username,
-      email: email,
-      avatar: '/static/avatar/001-man.svg',
-      age: 25
-    }
-    userList.push(newUser)
-
-    const accessToken = jwt.sign({ userId: newUser.id }, JWT_SECRET, {
-      expiresIn: JWT_VALIDITY
-    })
-
-    return [
-      200,
-      {
-        accessToken,
-        user: {
-          id: newUser.id,
-          avatar: newUser.avatar,
-          email: newUser.email,
-          name: newUser.name,
-          username: newUser.username,
-          role: newUser.role
-        }
-      }
-    ]
-  } catch (error) {
-    console.error(error)
-    return [500, { message: 'Internal server error' }]
-  }
-})
-
 Mock.onGet('/api/auth/profile').reply((config) => {
   try {
     //@ts-ignore
