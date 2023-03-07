@@ -5,15 +5,14 @@ import UkoAvatar from "components/UkoAvatar";
 const UserListColumnShape = [
   {
     Header: "Name",
-    accessor: "name",
     minWidth: 200,
     Cell: ({ row }: any) => {
-      const { avatar, name, email } = row.original;
+      const { image, fullName, email } = row.original;
       return (
         <FlexBox alignItems="center">
-          <UkoAvatar src={avatar} />
+          <UkoAvatar src={image} />
           <FlexBox flexDirection="column" ml={1}>
-            <H6 color="text.primary">{name}</H6>
+            <H6 color="text.primary">{fullName}</H6>
             <Tiny color="text.disabled">{email}</Tiny>
           </FlexBox>
         </FlexBox>
@@ -22,30 +21,57 @@ const UserListColumnShape = [
   },
   {
     Header: "Role",
-    accessor: "role",
     minWidth: 200,
-    Cell: ({ value }: any) => (
-      <Small
+    Cell: ({ row }: any) => {
+      const { accountType } = row.original;
+      let backgroundColor;
+      switch (accountType) {
+        case 'teacher':
+          backgroundColor = '#ff9933'
+          break;
+        case 'admin':
+          backgroundColor = '#588be8'
+          break;
+        default:
+          backgroundColor = '#A798FF';
+      }
+      if (accountType === 'teacher') {
+      }
+      return <Small
         sx={{
           borderRadius: 10,
           padding: ".2rem 1rem",
           color: "background.paper",
-          backgroundColor: "#A798FF",
+          backgroundColor: backgroundColor,
         }}
       >
-        {value}
+        {accountType}
       </Small>
-    ),
+    },
   },
   {
     Header: "Classroom",
-    accessor: "classroom",
     minWidth: 150,
+    Cell: ({ row }: any) => {
+      const { classroomId } = row.original;
+      return (
+        <Small>
+          {classroomId ? classroomId : 'Chưa tham gia'}
+        </Small>
+      )
+    }
   },
   {
     Header: "Join Date",
-    accessor: "project",
-    minWidth: 150,
+    minWidth: 100,
+    Cell: ({ row }: any) => {
+      const { createdAt } = row.original;
+      return (
+        <Small>
+          {new Date(createdAt).toISOString().slice(0,10)}
+        </Small>
+      )
+    }
   },
 ];
 

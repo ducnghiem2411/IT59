@@ -35,6 +35,7 @@ interface CustomTableProps {
   rowClick?: (rowData: object) => void;
   hidePagination?: boolean;
   showFooter?: boolean;
+  totalPages: number;
 }
 
 // styled component
@@ -66,7 +67,7 @@ const StyledPagination = styled(Pagination)(({ theme }) => ({
 }));
 
 const CustomTable: FC<CustomTableProps> = (props) => {
-  const { data, rowClick, showFooter, columnShape, hidePagination } = props;
+  const { data, rowClick, showFooter, columnShape, hidePagination, totalPages } = props;
   // hooks
   const theme = useTheme();
   const tableData: any = useMemo(() => data, [data]);
