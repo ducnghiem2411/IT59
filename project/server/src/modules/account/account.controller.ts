@@ -1,11 +1,11 @@
 import { Request, Response } from 'express'
 import { Account } from '../../models/Account'
-import { ApiResponse } from '../../shared/types/api.response'
+import { ApiResponse, PaginateResponse } from '../../shared/types/api.response'
 import { TokenPayload } from '../../shared/types/token.payload'
 import { editAccountById, findAccountById, listAccount } from './account.service'
-import { AccountPaginate, EditAccountParams, ListAccountParams } from './account.type'
+import { EditAccountParams, ListAccountParams } from './account.type'
 
-export async function getListAccount(req: Request, res: Response<ApiResponse<AccountPaginate>>) {
+export async function getListAccount(req: Request, res: Response<ApiResponse<PaginateResponse<Account>>>) {
   try {
     const { page, pageSize, accountType, classroomId, isApproved }: ListAccountParams = req.query as any
     const data = await listAccount({

@@ -1,9 +1,9 @@
 import { Request, Response } from 'express'
 import { AssessmentTemplate, Comment } from '../../models/AssessmentTemplate'
-import { ApiResponse } from '../../shared/types/api.response'
+import { ApiResponse, PaginateResponse } from '../../shared/types/api.response'
 import { TokenPayload } from '../../shared/types/token.payload'
 import { approveTemplate, findTemplateById, findTemplates, saveComment, saveTemplate } from './template.service'
-import { CommentOnTemplate, ListTemplateParams, SubmitTemplate, TemplatePaginate } from './template.type'
+import { CommentOnTemplate, ListTemplateParams, SubmitTemplate } from './template.type'
 
 export async function submitTemplate(req: Request, res: Response<ApiResponse<AssessmentTemplate>>) {
   try {
@@ -32,7 +32,7 @@ export async function getTemplateById(req: Request, res: Response<ApiResponse<As
   }
 }
 
-export async function getTemplates(req: Request, res: Response<ApiResponse<TemplatePaginate>>) {
+export async function getTemplates(req: Request, res: Response<ApiResponse<PaginateResponse<AssessmentTemplate>>>) {
   try {
     const { page, pageSize, censorId, creatorId, classRoomId, isApproved }: ListTemplateParams = req.query as any
     const data = await findTemplates({

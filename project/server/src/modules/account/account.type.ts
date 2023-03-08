@@ -1,5 +1,3 @@
-import { Account } from "../../models/Account"
-
 export interface ListAccountParams {
     page: number
     pageSize: number
@@ -14,9 +12,4 @@ export interface EditAccountParams {
     password: string
     email: string
     phone: string
-}
-
-export interface AccountPaginate {
-    total: number, 
-    data: Account[] 
 }

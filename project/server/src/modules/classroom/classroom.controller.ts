@@ -1,7 +1,6 @@
 import { Request, Response } from 'express'
 import { Classroom } from '../../models/Classroom'
-import { ApiResponse } from '../../shared/types/api.response'
-import { ClassroomPaginate } from './classroom.type'
+import { ApiResponse, PaginateResponse } from '../../shared/types/api.response'
 
 export async function createClass(req: Request, res: Response<ApiResponse<Classroom>>) {
   try {
@@ -18,7 +17,9 @@ export async function getClassById(req: Request, res: Response<ApiResponse<Class
   } catch (error) {}
 }
 
-export async function getClasses(req: Request, res: Response<ApiResponse<ClassroomPaginate>>) {
+export async function getClasses(req: Request, res: Response<ApiResponse<PaginateResponse<Classroom>>>) {
   try {
-  } catch (error) {}
+  } catch (error) {
+    
+  }
 }

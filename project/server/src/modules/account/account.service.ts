@@ -1,14 +1,15 @@
 import { Filter } from 'mongodb'
 import { Account } from '../../models/Account'
 import { Accounts } from '../../mongodb'
+import { PaginateResponse } from '../../shared/types/api.response'
 import { validatePaginationParams } from '../../shared/utils'
-import { AccountPaginate, EditAccountParams, ListAccountParams } from './account.type'
+import { EditAccountParams, ListAccountParams } from './account.type'
 
 export async function findAccountById(accountId: string): Promise<Account | null> {
   return await Accounts.findOne({ accountId })
 }
 
-export async function listAccount(params: ListAccountParams): Promise<AccountPaginate> {
+export async function listAccount(params: ListAccountParams): Promise<PaginateResponse<Account>> {
   const { page, pageSize, accountType, classroomId, isApproved } = params
   validatePaginationParams(page, pageSize)
 
@@ -29,7 +30,8 @@ export async function listAccount(params: ListAccountParams): Promise<AccountPag
     .skip(pageSize * page)
     .toArray()
   const total = await Accounts.countDocuments(filter)
-  return { total, data }
+  const totalPage = Math.ceil(pageSize/total)
+  return { total, data, page, totalPage }
 }
 
 export async function editAccountById(accountId: string, params: EditAccountParams) {

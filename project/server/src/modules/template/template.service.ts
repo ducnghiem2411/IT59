@@ -30,7 +30,8 @@ export async function findTemplates(params: ListTemplateParams) {
     const data = await AssessmentTemplates.find(filter).skip(page*pageSize).limit(pageSize).toArray()
     const total = await AssessmentTemplates.countDocuments(filter)
 
-    return { data, total }
+    const totalPage = Math.ceil(pageSize/total)
+    return { total, data, page, totalPage }
 }
 
 export async function findTemplateById(id: string) {
