@@ -19,6 +19,7 @@ import { H5 } from "components/Typography";
 import ModalDeleteUser from "pages/userManagement/ModalDeleteUser";
 import ModalEditUser from "pages/userManagement/ModalEditUser";
 import { ChangeEvent, FC, useCallback, useMemo, useState } from "react";
+import { useNavigate } from "react-router-dom"
 import {
   useExpanded,
   usePagination,
@@ -67,6 +68,7 @@ const StyledPagination = styled(Pagination)(({ theme }) => ({
 }));
 
 const CustomTable: FC<CustomTableProps> = (props) => {
+
   const { data, rowClick, showFooter, columnShape, hidePagination, totalPages } = props;
   // hooks
   const theme = useTheme();
@@ -117,6 +119,7 @@ const CustomTable: FC<CustomTableProps> = (props) => {
     setIdChoose(id)
     setIsDelete(true)
   }
+  const navigater=useNavigate()
   return (
     <>
       <Box>
@@ -156,13 +159,16 @@ const CustomTable: FC<CustomTableProps> = (props) => {
             <TableBody {...getTableBodyProps()}>
               {page.map((row: any) => {
 
-                const { avatar, name, address, id } = row.original;
-                console.log('row id', id)
+                const { avatar, name, address, accountId } = row.original;
+                // console.log('row id', accountId)
                 prepareRow(row);
                 return (
+                 
+                 
                   <TableRow
+                 
                     {...row.getRowProps()}
-                    onClick={rowClick && rowClick(row.original)}
+                    onClick={()=>{rowClick && rowClick(row.original);navigater(`../account/${accountId}`)} }
                     sx={{
                       backgroundColor: "background.paper",
                       cursor: rowClick ? "pointer" : "unset",
@@ -189,7 +195,7 @@ const CustomTable: FC<CustomTableProps> = (props) => {
                   >
                     {row.cells.map((cell: any) => {
                       return (
-                        <>
+                        
                           <TableCell
                             {...cell.getCellProps()}
                             sx={{
@@ -205,21 +211,22 @@ const CustomTable: FC<CustomTableProps> = (props) => {
 
                           </TableCell>
 
-                        </>
+                        
                       )
                     }
                     )}
                     <TableCell role="cell">
                       <Grid sm={3} justifyContent="end">
 
-                        <Button variant="contained" style={{ marginRight: 10 }} onClick={() => handleEdit(id)} >Edit</Button>
+                       
+                        <Button variant="contained" style={{ marginRight: 10 }} onClick={(e) => {e.stopPropagation(); handleEdit(accountId)}} >Edit</Button>
 
 
-                        <Button variant="contained" color="error" onClick={() => handleDelete(id)}>Delete</Button>
-
+                        <Button variant="contained" color="error" onClick={(e) => {e.stopPropagation(); handleDelete(accountId)}}>Delete</Button>
                       </Grid>
                     </TableCell>
                   </TableRow>
+                  
                 );
               })}
 

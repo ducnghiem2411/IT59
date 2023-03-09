@@ -52,7 +52,7 @@ const ProfilePopover: FC = () => {
           }}
         >
           <UkoAvatar
-            src={user?.avatar || "/static/avatar/001-man.svg"}
+            src={"https://images.unsplash.com/photo-1575936123452-b67c3203c357?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8Mnx8aW1hZ2V8ZW58MHx8MHx8&w=1000&q=80"}
             sx={{ width: 30, height: 30, ml: 1 }}
           />
         </Badge>

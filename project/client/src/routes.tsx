@@ -1,6 +1,7 @@
 import GuestGuard from "components/authentication/GuestGuard";
 import DashboardLayout from "components/Layouts/DashboardLayout";
 import LoadingScreen from "components/LoadingScreen";
+import { AccountDetails } from "pages/accountDetails/AccountDetails"
 import { FC, lazy, LazyExoticComponent, Suspense } from "react";
 import { Navigate } from "react-router-dom";
 
@@ -42,7 +43,7 @@ const Error = Loadable(lazy(() => import("./pages/404")));
 const routes = [
   {
     path: "/",
-    element: <Navigate to="homepage" />,
+    element: <Navigate to="account" />,
   },
   {
     path: "/login",
@@ -61,12 +62,22 @@ const routes = [
     ),
   },
   {
-    path: "/homepage",
+    path: "account",
     element: (
-      <DashboardLayout >
-        <UserList />
-      </DashboardLayout>
+      <DashboardLayout />
     ),
+    children: [
+      {
+        path: "",
+        element:
+            <UserList /> 
+      },
+      {
+        path: ":id",
+        element:
+         <AccountDetails />
+      },
+    ]
   },
   {
     path: "/classroom",
@@ -93,7 +104,6 @@ const routes = [
         path: "user-profile",
         element: <UserProfile />,
       },
-
       {
         path: "user-list",
         element: <UserList />,

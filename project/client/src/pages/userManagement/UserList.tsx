@@ -5,7 +5,7 @@ import SearchInput from 'components/SearchInput'
 import UserListColumnShape from 'components/userManagement/columnShape'
 import CustomTable from 'components/userManagement/CustomTable'
 import { FC, useEffect, useState } from 'react'
-import { useNavigate } from 'react-router-dom'
+import { useNavigate, useSearchParams } from 'react-router-dom'
 
 // styled component
 const StyledFlexBox = styled(FlexBox)(({ theme }) => ({
@@ -24,10 +24,15 @@ const StyledFlexBox = styled(FlexBox)(({ theme }) => ({
 }))
 
 const UserList: FC = () => {
+  let [searchParams, setSearchParams] = useSearchParams();
+  const page = Number(searchParams.get('page')) || 0
+  const pageSize = 5
+
   // change navbar title
   const navigate = useNavigate()
   const handleAddUser = () => navigate('/dashboard/add-user')
-  const [paging, setPaging] = useState({ page: 0, pageSize: 100 })
+  const handlePagi = (page:number) => navigate(`/account?${page}&${pageSize}`)
+  const [paging, setPaging] = useState({ page, pageSize })
   const [userList, setUserList] = useState([])
 
   useEffect(() => {
@@ -35,7 +40,7 @@ const UserList: FC = () => {
       const response = await getAccountList(paging.page, paging.pageSize)
       console.log(response);
       if (response) {
-        const totalPage = Math.ceil((response.total)/paging.pageSize)
+        const totalPage = Math.ceil((response.total)/ paging.pageSize)
         setUserList(response.data)
       }
     }

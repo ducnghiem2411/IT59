@@ -7,7 +7,8 @@ import {
   useMediaQuery,
 } from "@mui/material";
 import { H2 } from "components/Typography";
-import { FC } from "react";
+import AuthContext from "contexts/JWTAuthContext"
+import { FC, useContext } from "react";
 import NotificationsPopover from "./popovers/NotificationsPopover";
 import ProfilePopover from "./popovers/ProfilePopover";
 
@@ -47,6 +48,7 @@ const ToggleIcon = styled(Box)(({ theme }) => ({
 const DashboardNavbar: FC<DashboardNavBarProps> = ({
   setShowMobileSideBar,
 }) => {
+  const { user } = useContext(AuthContext)
   const upSm = useMediaQuery((theme: Theme) => theme.breakpoints.up("sm"));
   const downSm = useMediaQuery((theme: Theme) => theme.breakpoints.down("sm"));
 
