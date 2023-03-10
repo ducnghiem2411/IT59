@@ -3,7 +3,8 @@ import { Classroom } from '../../models/Classroom'
 import { Classrooms } from '../../mongodb'
 import { PaginateResponse } from '../../shared/types/api.response'
 import { validatePaginationParams } from '../../shared/utils'
-import { EditClassroomParams, ListClassroomParams } from './classroom.type'
+import { CreateClassParams, EditClassroomParams, ListClassroomParams } from './classroom.type'
+import * as uuid from 'uuid'
 
 export async function findClassroomById(classroomId: string): Promise<Classroom | null> {
   return await Classrooms.findOne({ classroomId })
@@ -24,10 +25,11 @@ export async function listClassroom(params: ListClassroomParams): Promise<Pagina
 }
 
 export async function editClassroomById(params: EditClassroomParams) {
-    const { classroomId, classroomName, accountToAdd, accountToRemove } = params
-    
-    let update: UpdateFilter<Classroom> = {}
-    
+  const { classroomId, classroomName, accountToAdd, accountToRemove } = params
+
+  let update: UpdateFilter<Classroom> = {}
+
+  // To do: update account counting & account in array
   if (classroomName) {
     update.$set = { classroomName }
   }
@@ -37,4 +39,18 @@ export async function editClassroomById(params: EditClassroomParams) {
     { returnDocument: 'after' }
   )
   return value
+}
+
+export async function saveClassroom(params: CreateClassParams) {
+  const newClass: Classroom = {
+    classroomId: uuid.v4(),
+    classroomName: params.classroomName,
+    studentCount: 0,
+    studentsId: [],
+    teacherCount: 0,
+    teachersId: [],
+    createdAt: new Date().getTime()
+  }
+  await Classrooms.insertOne(newClass)
+  return newClass
 }
