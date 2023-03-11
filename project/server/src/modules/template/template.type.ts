@@ -1,5 +1,6 @@
 export interface SubmitTemplate {
   evidence: string
+  point: number
   images: string[]
 }
 

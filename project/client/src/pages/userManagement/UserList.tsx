@@ -30,17 +30,17 @@ const UserList: FC = () => {
 
   // change navbar title
   const navigate = useNavigate()
-  const handleAddUser = () => navigate('/dashboard/add-user')
-  const handlePagi = (page:number) => navigate(`/account?${page}&${pageSize}`)
+  const handleAddUser = () => navigate('/dashboard/add-account')
+
+  const handlePaging = (page:number) => navigate(`/account?${page}&${pageSize}`)
   const [paging, setPaging] = useState({ page, pageSize })
+  
   const [userList, setUserList] = useState([])
 
   useEffect(() => {
     async function fetchData() {
       const response = await getAccountList(paging.page, paging.pageSize)
-      console.log(response);
       if (response) {
-        const totalPage = Math.ceil((response.total)/ paging.pageSize)
         setUserList(response.data)
       }
     }

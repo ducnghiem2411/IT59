@@ -10,6 +10,10 @@ export interface AssessmentTemplate {
     evidence: string
     images: string[]
     comments?: Comment[]
+    point: number
+    timeframe: string
+    startTime: number
+    endTime: number
     isApproved: boolean
     approvedAt?: number
     createdAt: number

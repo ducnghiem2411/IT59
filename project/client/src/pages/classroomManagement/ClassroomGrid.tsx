@@ -1,7 +1,8 @@
 import { Box, Button, Grid, styled } from "@mui/material";
+import { getClassroomList } from "api/classroom"
 import FlexBox from "components/FlexBox";
 import SearchInput from "components/SearchInput";
-import UserCard from "components/userManagement/UserCard";
+import ClassroomCard from "components/ClassroomCard";
 import { FC, useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 
@@ -22,90 +23,39 @@ const StyledFlexBox = styled(FlexBox)(({ theme }) => ({
 }));
 
 const ClassroomGrid: FC = () => {
-  // change navbar title
-
   const navigate = useNavigate();
-  const handleAddClass = () => navigate("/dashboard/add-user");
-  const [] = useState()
+  const handleAddClass = () => navigate("/account/add");
+  const [listClass, setListClass] = useState([])
+
   useEffect(() => {
-    
+    async function fetchData() {
+      const response = await getClassroomList(0, 20)
+      if (response) {
+        setListClass(response.data)
+      }
+    }
+    fetchData()
   })
 
   return (
     <Box pt={2} pb={4}>
       <StyledFlexBox>
         <SearchInput placeholder="Search classroom..." />
+
         <Button variant="contained" onClick={handleAddClass}>
           Add New Classroom
         </Button>
       </StyledFlexBox>
 
       <Grid container spacing={3}>
-        {userList.map((user, index) => (
+        {listClass.map((classroom, index) => (
           <Grid item md={4} sm={6} xs={12} key={index}>
-            <UserCard user={user} />
+            <ClassroomCard classroom={classroom} />
           </Grid>
         ))}
       </Grid>
     </Box>
   );
 };
-
-const userList = [
-  {
-    cover: "/static/cover/cover-1.png",
-    avatar: "/static/avatar/001-man.svg",
-    name: "Natalie Dormer",
-    position: "Marketing Manager",
-    post: 121,
-    follower: 575,
-    following: 632,
-  },
-  {
-    cover: "/static/cover/cover-4.png",
-    avatar: "/static/avatar/002-girl.svg",
-    name: "Selena Gomez",
-    position: "Font End Developer",
-    post: 121,
-    follower: 575,
-    following: 632,
-  },
-  {
-    cover: "/static/cover/cover-3.png",
-    avatar: "/static/avatar/005-man-1.svg",
-    name: "Mark Dhoner",
-    position: "UI Designer",
-    post: 121,
-    follower: 575,
-    following: 632,
-  },
-  {
-    cover: "/static/cover/cover-4.png",
-    avatar: "/static/avatar/014-man-3.svg",
-    name: "Tom Hardy",
-    position: "Marketing Manager",
-    post: 121,
-    follower: 575,
-    following: 632,
-  },
-  {
-    cover: "/static/cover/cover-5.png",
-    avatar: "/static/avatar/023-man-6.svg",
-    name: "Logan Paul",
-    position: "Font End Developer",
-    post: 121,
-    follower: 575,
-    following: 632,
-  },
-  {
-    cover: "/static/cover/cover-6.png",
-    avatar: "/static/avatar/027-man-7.svg",
-    name: "Tom Holland",
-    position: "UI Designer",
-    post: 121,
-    follower: 575,
-    following: 632,
-  },
-];
 
 export default ClassroomGrid;

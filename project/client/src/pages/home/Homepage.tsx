@@ -11,7 +11,7 @@ import PeopleIcon from "icons/PeopleIcon";
 import WindowsLogoIcon from "icons/WindowsLogoIcon";
 import { FC } from "react";
 
-const SaaS: FC = () => {
+const Homepage: FC = () => {
   // change navbar title
 
   const theme = useTheme();
@@ -55,25 +55,14 @@ const SaaS: FC = () => {
 
       <Grid container spacing={4} pt={4}>
         <Grid item lg={8} md={7} xs={12}>
-          <TotalSpent />
-        </Grid>
-        <Grid item lg={4} md={5} xs={12}>
-          <Analytics />
-        </Grid>
-
-        <Grid item lg={8} md={7} xs={12}>
           <RecentOrders />
         </Grid>
         <Grid item lg={4} md={5} xs={12}>
           <TopSelling />
-        </Grid>
-
-        <Grid item xs={12}>
-          <Footer imageLink="/static/illustration/sass-dashboard.svg" />
         </Grid>
       </Grid>
     </Box>
   );
 };
 
-export default SaaS;
+export default Homepage;

@@ -7,14 +7,15 @@ import {
   useMediaQuery,
 } from "@mui/material";
 import { H2 } from "components/Typography";
-import AuthContext from "contexts/JWTAuthContext"
-import { FC, useContext } from "react";
+import useAuth from "hooks/useAuth"
+import { FC } from "react";
 import NotificationsPopover from "./popovers/NotificationsPopover";
 import ProfilePopover from "./popovers/ProfilePopover";
 
 // root component interface
 interface DashboardNavBarProps {
   setShowMobileSideBar: () => void;
+  title: string
 }
 
 // custom styled components
@@ -46,9 +47,9 @@ const ToggleIcon = styled(Box)(({ theme }) => ({
 
 // root component
 const DashboardNavbar: FC<DashboardNavBarProps> = ({
-  setShowMobileSideBar,
+  setShowMobileSideBar, title
 }) => {
-  const { user } = useContext(AuthContext)
+  const { userAuthInfo, setUserAuthInfo } = useAuth()
   const upSm = useMediaQuery((theme: Theme) => theme.breakpoints.up("sm"));
   const downSm = useMediaQuery((theme: Theme) => theme.breakpoints.down("sm"));
 
@@ -93,7 +94,7 @@ const DashboardNavbar: FC<DashboardNavBarProps> = ({
           fontWeight="700"
           color="text.primary"
         >
-          Account list
+          {title}
         </H2>
 
         <Box flexGrow={1} ml={1} />

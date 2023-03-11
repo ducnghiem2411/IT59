@@ -18,7 +18,7 @@ const Wrapper = styled(Box)(({ theme }) => ({
   },
 }));
 
-const DashboardLayout: FC = ({ children }) => {
+const DashboardLayout: FC<{ children: React.ReactNode, title: string }> = ({ children, title }) => {
   const [showMobileSideBar, setShowMobileSideBar] = useState(false);
 
   return (
@@ -31,6 +31,7 @@ const DashboardLayout: FC = ({ children }) => {
       <Wrapper>
         <DashboardNavbar
           setShowMobileSideBar={() => setShowMobileSideBar((state) => !state)}
+          title = {title}
         />
         {children || <Outlet />}
       </Wrapper>

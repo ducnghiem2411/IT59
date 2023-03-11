@@ -19,8 +19,8 @@ const ForgetPassword = Loadable(
   lazy(() => import("./pages/authentication/ForgetPassword"))
 );
 
-// Dashboard pages
-const DashboardSaaS = Loadable(lazy(() => import("./pages/dashboards/SaaS")));
+// Home pages
+const Homepage = Loadable(lazy(() => import("./pages/home/Homepage")));
 
 // user profile
 const UserProfile = Loadable(lazy(() => import("./pages/UserProfile")));
@@ -43,7 +43,11 @@ const Error = Loadable(lazy(() => import("./pages/404")));
 const routes = [
   {
     path: "/",
-    element: <Navigate to="account" />,
+    element: (
+      <DashboardLayout title="Trang chủ">
+        <Homepage />
+      </DashboardLayout>
+    )
   },
   {
     path: "/login",
@@ -63,26 +67,39 @@ const routes = [
   },
   {
     path: "account",
-    element: (
-      <DashboardLayout />
-    ),
     children: [
       {
         path: "",
-        element:
-            <UserList /> 
+        element: (
+          <DashboardLayout title="Danh sách tài khoản">
+            <UserList />
+          </DashboardLayout>
+        ) 
       },
       {
         path: ":id",
-        element:
-         <AccountDetails />
+        element: (
+          <DashboardLayout title="Thông tin tài khoản">
+            <UserProfile />
+            {/* <AccountDetails /> 
+             */}
+          </DashboardLayout>
+        ) 
+      },
+      {
+        path: "add-account",
+        element: (
+          <DashboardLayout title="Tạo tài khoản">
+            <AddNewUser />,
+          </DashboardLayout>
+        )
       },
     ]
   },
   {
     path: "/classroom",
     element: (
-      <DashboardLayout >
+      <DashboardLayout title="Lớp học">
         <ClassroomGrid />
       </DashboardLayout>
     ),
@@ -90,30 +107,33 @@ const routes = [
 
   {
     path: "dashboard",
-    element: (
-      // <AuthGuard>
-        <DashboardLayout />
-      // </AuthGuard>
-    ),
     children: [
       {
         path: "",
-        element: <DashboardSaaS />,
+        element: (
+          <DashboardLayout title="Trang chủ">
+            <UserProfile />
+          </DashboardLayout>
+        ),
       },
       {
-        path: "user-profile",
-        element: <UserProfile />,
+        path: "account-profile",
+        element: (
+          <DashboardLayout title="Trang chủ">
+            <UserProfile />
+          </DashboardLayout>
+        ),
       },
       {
-        path: "user-list",
+        path: "account-list",
         element: <UserList />,
       },
       {
-        path: "user-grid",
+        path: "classroom-list",
         element: <ClassroomGrid />,
       },
       {
-        path: "add-user",
+        path: "add-account",
         element: <AddNewUser />,
       },
     ],

@@ -1,0 +1,14 @@
+- Classroom id page
+- Classroom edit (add, remove account)
+
+- user paginate
+- user edit
+- user id page
+
+- add account
+
+- template list page
+- template edit
+
+- report page
+- report create

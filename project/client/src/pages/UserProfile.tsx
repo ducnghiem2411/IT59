@@ -51,7 +51,7 @@ const StyledTabPanel = styled(TabPanel)(() => ({
 
 const UserProfile: FC = () => {
   // change navbar title
-  const { user } = useAuth();
+  const { userAuthInfo, setUserAuthInfo } = useAuth();
 
   const [value, setValue] = useState("1");
 
@@ -81,7 +81,7 @@ const UserProfile: FC = () => {
           >
             <ContentWrapper>
               <UkoAvatar
-                src={user?.avatar || "/static/avatar/001-man.svg"}
+                src={userAuthInfo?.image || "/static/avatar/001-man.svg"}
                 sx={{
                   border: 4,
                   width: 100,
@@ -91,7 +91,7 @@ const UserProfile: FC = () => {
               />
 
               <Box marginLeft={3} marginTop={3}>
-                <H3 lineHeight={1.2}>{user?.name}</H3>
+                <H3 lineHeight={1.2}>{userAuthInfo?.fullName}</H3>
                 <Small color="text.disabled">UI Designer</Small>
               </Box>
             </ContentWrapper>

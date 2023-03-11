@@ -2,7 +2,7 @@ import { Filter, ObjectId } from "mongodb";
 import { AssessmentTemplate, Comment } from "../../models/AssessmentTemplate";
 import { Accounts, AssessmentTemplates, Classrooms } from "../../mongodb";
 import { TokenPayload } from "../../shared/types/token.payload";
-import { validatePaginationParams } from "../../shared/utils";
+import { getTemplateTimeframe, validatePaginationParams } from "../../shared/utils";
 import { CommentOnTemplate, ListTemplateParams, SubmitTemplate } from "./template.type";
 
 export async function findTemplates(params: ListTemplateParams) {
@@ -54,12 +54,17 @@ export async function saveTemplate(creatorId: string, params: SubmitTemplate) {
         return
     }
 
+    const { timeframe, startTime, endTime } = getTemplateTimeframe(new Date().getTime())
     let template: AssessmentTemplate = {
         creator,
         censors,
         classroom,
         evidence: params.evidence,
         images: params.images,
+        point: params.point,
+        timeframe,
+        startTime,
+        endTime,
         comments: [],
         isApproved: false,
         createdAt: new Date().getTime()

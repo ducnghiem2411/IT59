@@ -12,6 +12,7 @@ import { TextFieldWrapper } from 'components/authentication/StyledComponents'
 import FlexBox from 'components/FlexBox'
 import LightTextField from 'components/LightTextField'
 import { H1, Paragraph, Small } from 'components/Typography'
+import { setSession } from 'api/index'
 import { useFormik } from 'formik'
 import useAuth from 'hooks/useAuth'
 import { FC, useState } from 'react'
@@ -21,9 +22,9 @@ import * as Yup from 'yup'
 import { signIn } from '../../api/users'
 
 const Login: FC = () => {
-  const { login } = useAuth()
   const [error, setError] = useState('')
   const [loading, setLoading] = useState(false)
+  const { userAuthInfo, setUserAuthInfo } = useAuth()
   let navigate = useNavigate()
 
   const initialValues = {
@@ -47,20 +48,17 @@ const Login: FC = () => {
       initialValues,
       validationSchema,
       onSubmit: async (values: any) => {
-        setLoading(true)
-
-        const response = await signIn(values.username, values.password)
-
-        login(values.username, values.password)
-          .then(() => {
-            setLoading(false)
-            toast.success('You Logged In Successfully test')
-            navigate('/dashboard')
-          })
-          .catch((error) => {
-            setError(error.message)
-            setLoading(false)
-          })
+        try {
+          setLoading(true)
+          const response = await signIn(values.username, values.password)
+          setSession(response.token)
+          setLoading(false)
+          toast.success('Đăng nhập thành công')
+          navigate('/')
+        } catch (error) {
+          setError('Sai tên đăng nhập hoặc mật khẩu')
+          setLoading(false)
+        }
       }
     })
 
@@ -81,10 +79,10 @@ const Login: FC = () => {
           mb={5}
         >
           <Box width={38} mb={1}>
-            <img src='/static/logo/logo.svg' width='100%' alt='Uko Logo' />
+            <img src='/static/logo/logo.svg' width='100%'/>
           </Box>
           <H1 fontSize={24} fontWeight={700}>
-            Sign In to Uko
+            Đăng nhập hệ thống
           </H1>
         </FlexBox>
 
@@ -97,7 +95,7 @@ const Login: FC = () => {
             <FlexBox justifyContent='space-between' flexWrap='wrap'>
               <TextFieldWrapper>
                 <Paragraph fontWeight={600} mb={1}>
-                  Username
+                  Tên tài khoản
                 </Paragraph>
                 <LightTextField
                   fullWidth
@@ -113,7 +111,7 @@ const Login: FC = () => {
 
               <TextFieldWrapper>
                 <Paragraph fontWeight={600} mb={1}>
-                  Password
+                  Mật khẩu
                 </Paragraph>
                 <LightTextField
                   fullWidth
@@ -137,11 +135,11 @@ const Login: FC = () => {
                     onChange={handleChange}
                   />
                 }
-                label='Remember Me'
+                label='Lưu đăng nhập'
                 sx={{ '& .MuiTypography-root': { fontWeight: 600 } }}
               />
               <Link to='/forget-password'>
-                <Small color='secondary.red'>Forgot Password?</Small>
+                <Small color='secondary.red'>Quên mật khẩu?</Small>
               </Link>
             </FlexBox>
 
@@ -162,11 +160,11 @@ const Login: FC = () => {
             <Box sx={{ mt: 4 }}>
               {loading ? (
                 <LoadingButton loading fullWidth variant='contained'>
-                  Sign In
+                  Đăng nhập
                 </LoadingButton>
               ) : (
                 <Button fullWidth type='submit' variant='contained'>
-                  Sign In
+                  Đăng nhập
                 </Button>
               )}
             </Box>

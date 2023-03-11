@@ -22,7 +22,7 @@ const index = [
   {
     title: "Create account",
     Icon: PersonAdd,
-    path: "/dashboard/add-user",
+    path: "/account/add-account",
   },
   {
     title: "Login",

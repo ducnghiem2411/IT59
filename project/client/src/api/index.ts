@@ -1,12 +1,6 @@
-import Mock from "api/mock";
 import axios from 'axios';
-// ====================================================
-import "./dataTable";
-import "./users";
 
-Mock.onAny().passThrough();
-
-function apiInstance(token?: string) {
+export function apiInstance(token?: string) {
   return axios.create({
     baseURL: `http://localhost:3001`,
     headers: {
@@ -15,7 +9,7 @@ function apiInstance(token?: string) {
   });
 }
 
-const setSession = (accessToken: string | null) => {
+export const setSession = (accessToken: string | null) => {
   if (accessToken) {
     localStorage.setItem("accessToken", accessToken);
     axios.defaults.headers.common.Authorization = `Bearer ${accessToken}`;
@@ -24,5 +18,3 @@ const setSession = (accessToken: string | null) => {
     delete axios.defaults.headers.common.Authorization;
   }
 };
-
-export default apiInstance;

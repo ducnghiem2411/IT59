@@ -9,17 +9,16 @@ interface AuthGuardProps {
 }
 
 const AuthGuard = ({ children }: AuthGuardProps) => {
-  const { isAuthenticated } = useAuth();
+  const { userAuthInfo, setUserAuthInfo } = useAuth();
   const { pathname } = useLocation();
   const [requestedLocation, setRequestedLocation] = useState<string | null>(
     null
   );
 
-  if (!isAuthenticated) {
+  if (!userAuthInfo) {
     if (pathname !== requestedLocation) {
       setRequestedLocation(pathname);
     }
-
     return <Login />;
   }
 

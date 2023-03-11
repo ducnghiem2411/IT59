@@ -25,7 +25,7 @@ const StyledSmall = styled(Small)(({ theme }) => ({
 const ProfilePopover: FC = () => {
   const anchorRef = useRef(null);
   const navigate = useNavigate();
-  const { logout, user } = useAuth();
+  const { userAuthInfo, setUserAuthInfo } = useAuth();
   const [open, setOpen] = useState(false);
 
   const handleMenuItem = (path: string) => {
@@ -68,14 +68,14 @@ const ProfilePopover: FC = () => {
         title={
           <FlexBox alignItems="center">
             <UkoAvatar
-              src={user?.avatar || "/static/avatar/001-man.svg"}
+              src={userAuthInfo?.image || "/static/avatar/001-man.svg"}
               sx={{ width: 35, height: 35 }}
             />
 
             <Box ml={1}>
-              <H6>{user?.name}</H6>
+              <H6>{userAuthInfo?.accountName}</H6>
               <Tiny display="block" fontWeight={500} color="text.disabled">
-                {user?.email}
+                {userAuthInfo?.email}
               </Tiny>
             </Box>
           </FlexBox>
@@ -98,7 +98,8 @@ const ProfilePopover: FC = () => {
 
           <StyledSmall
             onClick={() => {
-              logout();
+              //@ts-ignore
+              setUserAuthInfo(null);
               toast.error("You Logout Successfully");
             }}
           >
