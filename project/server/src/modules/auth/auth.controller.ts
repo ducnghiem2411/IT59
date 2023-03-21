@@ -23,8 +23,9 @@ export async function signIn(req: Request, res: Response<ApiResponse<{ token: st
     const token = await login(body)
     if (token) {
       res.send({ code: 200, data: { token } })
+    } else {
+      res.send({ code: 403, message: 'Invalid username or password' })
     }
-    res.send({ code: 403, message: 'Invalid username or password' })
   } catch (e) {
     res.send({ code: 500 })
   }
