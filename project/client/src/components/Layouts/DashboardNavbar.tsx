@@ -5,10 +5,12 @@ import {
   Theme,
   Toolbar,
   useMediaQuery,
+  Button
 } from "@mui/material";
 import { H2 } from "components/Typography";
 import useAuth from "hooks/useAuth"
 import { FC } from "react";
+import { useNavigate } from "react-router-dom";
 import NotificationsPopover from "./popovers/NotificationsPopover";
 import ProfilePopover from "./popovers/ProfilePopover";
 
@@ -49,10 +51,12 @@ const ToggleIcon = styled(Box)(({ theme }) => ({
 const DashboardNavbar: FC<DashboardNavBarProps> = ({
   setShowMobileSideBar, title
 }) => {
-  const { userAuthInfo, setUserAuthInfo } = useAuth()
-  const upSm = useMediaQuery((theme: Theme) => theme.breakpoints.up("sm"));
+  const { userAuthInfo } = useAuth()
   const downSm = useMediaQuery((theme: Theme) => theme.breakpoints.down("sm"));
-
+  const navigate = useNavigate();
+  const handleLogin = () => {
+    navigate('/login')
+  }
   if (downSm) {
     return (
       <DashboardNavbarRoot position="sticky">
@@ -98,11 +102,17 @@ const DashboardNavbar: FC<DashboardNavBarProps> = ({
         </H2>
 
         <Box flexGrow={1} ml={1} />
-
-        {upSm && (
+      {
+        userAuthInfo ? 
+        <>
           <NotificationsPopover />
-        )}
-        <ProfilePopover />
+          <ProfilePopover />
+        </>
+        :
+        <Button variant="contained" onClick={handleLogin}>
+          Sign in
+        </Button>
+      }
       </StyledToolBar>
     </DashboardNavbarRoot>
   );

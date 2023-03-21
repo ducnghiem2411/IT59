@@ -35,7 +35,7 @@ const ClassroomGrid: FC = () => {
       }
     }
     fetchData()
-  })
+  }, [])
 
   return (
     <Box pt={2} pb={4}>

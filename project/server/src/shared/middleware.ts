@@ -6,12 +6,13 @@ import { ApiResponse } from './types/api.response'
 export async function authMiddleware(req: Request, res: Response<ApiResponse<any>>, next: NextFunction) {
   try {
     const token = req.headers.authorization?.split(' ')[1]
-    if (token) {
+    if (!token) {
+      res.send({ code: 401, message: 'Unauthorized' })
+    } else {
       const decodeResult = verify(token, JWT_SECRET)
       req['user'] = decodeResult
       next()
     }
-    res.send({ code: 401, message: 'Unauthorized' })
   } catch (e) {
     res.send({ code: 401, message: 'Unauthorized' })
   }

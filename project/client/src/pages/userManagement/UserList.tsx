@@ -4,6 +4,7 @@ import FlexBox from 'components/FlexBox'
 import SearchInput from 'components/SearchInput'
 import UserListColumnShape from 'components/userManagement/columnShape'
 import CustomTable from 'components/userManagement/CustomTable'
+import useAuth from 'hooks/useAuth'
 import { FC, useEffect, useState } from 'react'
 import { useNavigate, useSearchParams } from 'react-router-dom'
 
@@ -34,7 +35,7 @@ const UserList: FC = () => {
 
   const handlePaging = (page:number) => navigate(`/account?${page}&${pageSize}`)
   const [paging, setPaging] = useState({ page, pageSize })
-  
+  const { userAuthInfo } = useAuth()
   const [userList, setUserList] = useState([])
 
   useEffect(() => {
@@ -51,9 +52,12 @@ const UserList: FC = () => {
     <Box pt={2} pb={4}>
       <StyledFlexBox>
         <SearchInput placeholder="Search user..." />
-        <Button variant="contained" onClick={handleAddUser}>
-          Add New User
-        </Button>
+        { 
+          userAuthInfo?.accountType === 'admin' && 
+            <Button variant="contained" onClick={handleAddUser}>
+              Add New User
+            </Button>
+        }
       </StyledFlexBox>
 
       <CustomTable columnShape={UserListColumnShape} data={userList} totalPages={paging.pageSize} />
