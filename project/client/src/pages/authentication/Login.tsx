@@ -20,11 +20,12 @@ import toast from 'react-hot-toast'
 import { Link, useNavigate } from 'react-router-dom'
 import * as Yup from 'yup'
 import { signIn } from '../../api/users'
+import jwt from 'jsonwebtoken'
 
 const Login: FC = () => {
   const [error, setError] = useState('')
   const [loading, setLoading] = useState(false)
-  const { userAuthInfo, setUserAuthInfo } = useAuth()
+  const { setUserAuthInfo } = useAuth()
   let navigate = useNavigate()
 
   const initialValues = {
@@ -51,10 +52,16 @@ const Login: FC = () => {
         try {
           setLoading(true)
           const response = await signIn(values.username, values.password)
+          
           setSession(response.token)
-          setLoading(false)
-          toast.success('Đăng nhập thành công')
-          navigate('/')
+          const payload = jwt.decode(response.token, { json: true })
+          if (payload) {
+            //@ts-ignore
+            setUserAuthInfo(payload)
+            setLoading(false)
+            toast.success('Đăng nhập thành công')
+            navigate('/')
+          }
         } catch (error) {
           setError('Sai tên đăng nhập hoặc mật khẩu')
           setLoading(false)

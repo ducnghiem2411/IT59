@@ -152,8 +152,7 @@ const AddNewUser: FC = () => {
                   <Switch defaultChecked />
                 </SwitchWrapper>
                 <Tiny display="block" color="text.disabled" fontWeight={500}>
-                  Disabling this will automatically send the user a verification
-                  email
+                  Disabling this will automatically send the user a verification email
                 </Tiny>
               </Box>
             </Card>

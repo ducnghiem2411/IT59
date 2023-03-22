@@ -7,6 +7,8 @@ import { FC, Fragment, useRef, useState } from "react";
 import toast from "react-hot-toast";
 import { useNavigate } from "react-router-dom";
 import PopoverLayout from "./PopoverLayout";
+import AccountCircleIcon from '@mui/icons-material/AccountCircle';
+
 
 // styled components
 const StyledSmall = styled(Small)(({ theme }) => ({
@@ -33,12 +35,17 @@ const ProfilePopover: FC = () => {
     setOpen(false);
   };
 
+  const handleLogout = () => {
+    //@ts-ignore
+    setUserAuthInfo(null);
+    toast.error("You Logout Successfully");
+  }
+
   return (
     <Fragment>
       <ButtonBase disableRipple ref={anchorRef} onClick={() => setOpen(true)}>
         <Badge
           overlap="circular"
-          variant="dot"
           anchorOrigin={{ vertical: "bottom", horizontal: "right" }}
           sx={{
             "& .MuiBadge-badge": {
@@ -52,8 +59,8 @@ const ProfilePopover: FC = () => {
           }}
         >
           <UkoAvatar
-            src={"https://images.unsplash.com/photo-1575936123452-b67c3203c357?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8Mnx8aW1hZ2V8ZW58MHx8MHx8&w=1000&q=80"}
-            sx={{ width: 30, height: 30, ml: 1 }}
+            src={userAuthInfo?.image || `${AccountCircleIcon}`}
+            sx={{ width: 50, height: 50, ml: 1 }}
           />
         </Badge>
       </ButtonBase>
@@ -68,12 +75,12 @@ const ProfilePopover: FC = () => {
         title={
           <FlexBox alignItems="center">
             <UkoAvatar
-              src={userAuthInfo?.image || "/static/avatar/001-man.svg"}
-              sx={{ width: 35, height: 35 }}
+              src={ userAuthInfo?.image || `${AccountCircleIcon}` }
+              sx={{ width: 50, height: 50 }}
             />
 
             <Box ml={1}>
-              <H6>{userAuthInfo?.accountName}</H6>
+              <H6>{userAuthInfo?.fullName}</H6>
               <Tiny display="block" fontWeight={500} color="text.disabled">
                 {userAuthInfo?.email}
               </Tiny>
@@ -82,27 +89,17 @@ const ProfilePopover: FC = () => {
         }
       >
         <Box pt={1}>
-          <StyledSmall
-            onClick={() => handleMenuItem("/dashboard/user-profile")}
-          >
-            Set Status
+          <StyledSmall onClick={() => handleMenuItem(`/account/${userAuthInfo?.accountId}`)}>
+            Profile page
           </StyledSmall>
 
-          <StyledSmall
-            onClick={() => handleMenuItem("/dashboard/user-profile")}
-          >
-            Profile & Account
+          <StyledSmall onClick={() => handleMenuItem("/account/settings")}>
+            Settings
           </StyledSmall>
 
           <Divider sx={{ my: 1 }} />
 
-          <StyledSmall
-            onClick={() => {
-              //@ts-ignore
-              setUserAuthInfo(null);
-              toast.error("You Logout Successfully");
-            }}
-          >
+          <StyledSmall onClick={handleLogout}>
             Sign Out
           </StyledSmall>
         </Box>

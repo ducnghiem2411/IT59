@@ -9,7 +9,7 @@ interface AuthGuardProps {
 }
 
 const AuthGuard = ({ children }: AuthGuardProps) => {
-  const { userAuthInfo, setUserAuthInfo } = useAuth();
+  const { userAuthInfo } = useAuth();
   const { pathname } = useLocation();
   const [requestedLocation, setRequestedLocation] = useState<string | null>(
     null

@@ -8,6 +8,7 @@ import {
   Tooltip,
   useMediaQuery,
 } from "@mui/material";
+import useAuth from "hooks/useAuth";
 import { FC, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import ScrollBar from "simplebar-react";
@@ -51,7 +52,7 @@ const DashboardSideBar: FC<SideNavBarProps> = ({
 
   const [active, setActive] = useState("Dashboard");
   const downMd = useMediaQuery((theme: Theme) => theme.breakpoints.down("md"));
-
+  const { userAuthInfo } = useAuth()
   const handleActiveMainMenu = (menuItem: any) => () => {
     setActive(menuItem.title);
 
@@ -67,21 +68,21 @@ const DashboardSideBar: FC<SideNavBarProps> = ({
       </StyledListItemButton>
 
       <ScrollBar style={{ maxHeight: "calc(100% - 50px)" }}>
-        {topMenuList.map((nav, index) => (
-          <Tooltip title={nav.title} placement="right" key={index}>
-            <StyledListItemButton
-              disableRipple
-              onClick={handleActiveMainMenu(nav)}
-            >
-              <nav.Icon
-                sx={{
-                  color:
-                    active === nav.title ? "primary.main" : "secondary.400",
-                }}
-              />
-            </StyledListItemButton>
-          </Tooltip>
-        ))}
+        {topMenuList.map((nav, index) => {
+          if (nav.public === true || userAuthInfo?.accountType === 'admin') {
+            return(
+              <Tooltip title={nav.title} placement="right" key={index}>
+                <StyledListItemButton
+                  disableRipple
+                  onClick={handleActiveMainMenu(nav)}
+                >
+                  <nav.Icon sx={{ color: active === nav.title ? "primary.main" : "secondary.400" }}
+                />
+                </StyledListItemButton>
+              </Tooltip>
+            )
+          }
+        })}
       </ScrollBar>
     </List>
   );

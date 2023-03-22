@@ -2,6 +2,7 @@ import GuestGuard from "components/authentication/GuestGuard";
 import DashboardLayout from "components/Layouts/DashboardLayout";
 import LoadingScreen from "components/LoadingScreen";
 import { AccountDetails } from "pages/accountDetails/AccountDetails"
+import AccountSettings from "pages/AccountSettings";
 import { FC, lazy, LazyExoticComponent, Suspense } from "react";
 import { Navigate } from "react-router-dom";
 
@@ -81,8 +82,6 @@ const routes = [
         element: (
           <DashboardLayout title="Thông tin tài khoản">
             <UserProfile />
-            {/* <AccountDetails /> 
-             */}
           </DashboardLayout>
         ) 
       },
@@ -94,6 +93,14 @@ const routes = [
           </DashboardLayout>
         )
       },
+      {
+        path: "settings",
+        element: (
+          <DashboardLayout title="">
+            <AccountSettings/>
+          </DashboardLayout>
+        )
+      }
     ]
   },
   {
@@ -103,40 +110,6 @@ const routes = [
         <ClassroomGrid />
       </DashboardLayout>
     ),
-  },
-
-  {
-    path: "dashboard",
-    children: [
-      {
-        path: "",
-        element: (
-          <DashboardLayout title="Trang chủ">
-            <UserProfile />
-          </DashboardLayout>
-        ),
-      },
-      {
-        path: "account-profile",
-        element: (
-          <DashboardLayout title="Trang chủ">
-            <UserProfile />
-          </DashboardLayout>
-        ),
-      },
-      {
-        path: "account-list",
-        element: <UserList />,
-      },
-      {
-        path: "classroom-list",
-        element: <ClassroomGrid />,
-      },
-      {
-        path: "add-account",
-        element: <AddNewUser />,
-      },
-    ],
   },
   {
     path: "*",

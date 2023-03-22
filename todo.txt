@@ -6,6 +6,7 @@
 - user id page
 
 - add account
+- setting account
 
 - template list page
 - template edit

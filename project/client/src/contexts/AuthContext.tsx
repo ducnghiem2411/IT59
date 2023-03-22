@@ -33,8 +33,7 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
         const payload = jwt.decode(accessToken, { json: true })
         console.log('payload', payload);
         const currentTime = new Date().getTime() / 1000;
-        const tokenExpireTime = payload?.iat || 0
-       
+        const tokenExpireTime = payload?.exp || 0
         if (accessToken && (currentTime < tokenExpireTime)) {
           setSession(accessToken);
           //@ts-ignore

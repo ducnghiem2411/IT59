@@ -1,5 +1,6 @@
 import { TabContext, TabList, TabPanel } from "@mui/lab";
 import { Box, Card, Grid, styled, Tab } from "@mui/material";
+import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 import FlexBox from "components/FlexBox";
 import SearchInput from "components/SearchInput";
 import { H3, Small } from "components/Typography";
@@ -51,7 +52,7 @@ const StyledTabPanel = styled(TabPanel)(() => ({
 
 const UserProfile: FC = () => {
   // change navbar title
-  const { userAuthInfo, setUserAuthInfo } = useAuth();
+  const { userAuthInfo } = useAuth();
 
   const [value, setValue] = useState("1");
 
@@ -81,7 +82,7 @@ const UserProfile: FC = () => {
           >
             <ContentWrapper>
               <UkoAvatar
-                src={userAuthInfo?.image || "/static/avatar/001-man.svg"}
+                src={userAuthInfo?.image || AccountCircleIcon.toString()}
                 sx={{
                   border: 4,
                   width: 100,

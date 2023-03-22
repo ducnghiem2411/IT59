@@ -1,4 +1,4 @@
-import { AuthProvider } from "contexts/JWTAuthContext";
+import { AuthProvider } from "contexts/AuthContext";
 import "nprogress/nprogress.css";
 import { StrictMode } from "react";
 import ReactDOM from "react-dom";

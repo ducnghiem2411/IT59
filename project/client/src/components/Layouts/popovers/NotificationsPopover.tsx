@@ -95,7 +95,7 @@ const NotificationsPopover: FC = () => {
     <Fragment>
       <IconButton ref={anchorRef} onClick={() => setOpen(true)}>
         <Badge color="error" badgeContent={0}>
-          <NotificationsIcon fontSize="small" sx={{ color: "text.disabled" }} />
+          <NotificationsIcon fontSize="medium" sx={{ color: "text.disabled" }} />
         </Badge>
       </IconButton>
 
@@ -149,6 +149,7 @@ type ListItemProps = {
     message: string;
   };
 };
+
 function ListItem({ msg }: ListItemProps) {
   const theme = useTheme();
   const colorbg =
