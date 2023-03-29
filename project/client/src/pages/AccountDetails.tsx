@@ -50,7 +50,7 @@ const StyledTabPanel = styled(TabPanel)(() => ({
   padding: 0,
 }));
 
-const UserProfile: FC = () => {
+const AccountDetails: FC = () => {
   // change navbar title
   const { userAuthInfo } = useAuth();
 
@@ -302,4 +302,4 @@ const friends = [
   },
 ];
 
-export default UserProfile;
+export default AccountDetails;

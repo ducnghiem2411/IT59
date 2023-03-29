@@ -1,10 +1,8 @@
 import GuestGuard from "components/authentication/GuestGuard";
 import DashboardLayout from "components/Layouts/DashboardLayout";
 import LoadingScreen from "components/LoadingScreen";
-import { AccountDetails } from "pages/accountDetails/AccountDetails"
 import AccountSettings from "pages/AccountSettings";
 import { FC, lazy, LazyExoticComponent, Suspense } from "react";
-import { Navigate } from "react-router-dom";
 
 const Loadable = (Component: LazyExoticComponent<FC>) => (props: any) =>
 (
@@ -24,7 +22,7 @@ const ForgetPassword = Loadable(
 const Homepage = Loadable(lazy(() => import("./pages/home/Homepage")));
 
 // user profile
-const UserProfile = Loadable(lazy(() => import("./pages/UserProfile")));
+const UserProfile = Loadable(lazy(() => import("./pages/AccountDetails")));
 
 // user management
 const UserList = Loadable(
@@ -96,7 +94,7 @@ const routes = [
       {
         path: "settings",
         element: (
-          <DashboardLayout title="">
+          <DashboardLayout title="Cài đặt tài khoản">
             <AccountSettings/>
           </DashboardLayout>
         )

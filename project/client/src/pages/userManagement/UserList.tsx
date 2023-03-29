@@ -31,7 +31,7 @@ const UserList: FC = () => {
 
   // change navbar title
   const navigate = useNavigate()
-  const handleAddUser = () => navigate('/dashboard/add-account')
+  const handleAddUser = () => navigate('/account/add-account')
 
   const handlePaging = (page:number) => navigate(`/account?${page}&${pageSize}`)
   const [paging, setPaging] = useState({ page, pageSize })
